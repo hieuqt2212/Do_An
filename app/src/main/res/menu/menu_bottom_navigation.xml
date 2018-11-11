@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/btnHome"
+        android:icon="@drawable/ic_storage_indigo_a400_18dp"
+        android:title="Trang chủ" />
+
+    <item
+        android:id="@+id/btnRelax"
+        android:icon="@drawable/ic_storage_indigo_a400_18dp"
+        android:title="Vui chơi" />
+
+    <item
+        android:id="@+id/btnEat"
+        android:icon="@drawable/ic_storage_indigo_a400_18dp"
+        android:title="Ăn uống" />
+
+    <item
+        android:id="@+id/btnHotel"
+        android:icon="@drawable/ic_storage_indigo_a400_18dp"
+        android:title="Nhà nghỉ" />
+</menu>
