@@ -11,15 +11,15 @@ import io.reactivex.disposables.Disposable
 import java.util.concurrent.TimeUnit
 
 class SplashActivity : BaseActivity() {
-    var xxx: Disposable? = null
+    var disposable: Disposable? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-        xxx = Observable
+        disposable = Observable
                 .interval(1, TimeUnit.SECONDS)
                 .subscribe {
                     moveActivity(Intent(this, MainActivity::class.java))
-                    xxx?.dispose()
+                    disposable?.dispose()
                     finish()
                 }
     }
