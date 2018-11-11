@@ -1,18 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.main.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <android.support.design.widget.CollapsingToolbarLayout
+        android:id="@+id/viewToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:fitsSystemWindows="true"
+        app:contentScrim="@android:color/holo_blue_bright"
+        app:expandedTitleMarginStart="20dp"
+        app:expandedTitleTextAppearance="@style/TextAppearance.AppCompat.Subhead"
+        app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-</android.support.constraint.ConstraintLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.example.mba0229p.da_nang_travel.widgets.CustomViewPager
+                android:id="@+id/viewPagerHeaderHome"
+                android:layout_width="match_parent"
+                android:layout_height="250dp" />
+
+        </RelativeLayout>
+    </android.support.design.widget.CollapsingToolbarLayout>
+
+    <com.example.mba0229p.da_nang_travel.widgets.CustomViewPager
+        android:id="@+id/viewPagerContain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/viewBottom"
+        android:layout_below="@+id/viewToolbar" />
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/viewBottom"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimaryDark"
+        app:itemBackground="@color/colorAccent"
+        app:itemTextColor="@color/colorPrimary"
+        app:menu="@menu/menu_bottom_navigation" />
+</RelativeLayout>

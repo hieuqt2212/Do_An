@@ -36,7 +36,6 @@ internal fun Activity.showInformDialog(message: String, leftButton: String) = Al
  */
 internal fun Activity.moveActivity(intent: Intent) {
     startActivity(intent)
-    ActivityCompat.finishAffinity(this)
 }
 
 internal fun FragmentActivity.replaceFragment(@IdRes containerId: Int, fragment: Fragment) {
