@@ -42,7 +42,7 @@
             android:text="Sự kiện" />
     </RadioGroup>
 
-    <android.support.v4.view.ViewPager
+    <com.example.mba0229p.da_nang_travel.widgets.CustomViewPager
         android:id="@+id/viewPagerContainHome"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

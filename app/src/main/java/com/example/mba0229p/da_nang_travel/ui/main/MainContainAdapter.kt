@@ -19,5 +19,5 @@ class MainContainAdapter(fragmentManager: FragmentManager) : FragmentStatePagerA
 
     override fun getCount(): Int = 4
 
-    override fun getItemPosition(`object`: Any?): Int = PagerAdapter.POSITION_NONE
+    override fun getItemPosition(`object`: Any): Int = PagerAdapter.POSITION_NONE
 }
