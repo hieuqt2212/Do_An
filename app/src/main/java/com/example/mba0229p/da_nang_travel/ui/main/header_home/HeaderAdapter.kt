@@ -10,7 +10,7 @@ import com.example.mba0229p.da_nang_travel.R
 
 
 class HeaderAdapter(private val context: Context, private val listImage: MutableList<Int>) : PagerAdapter() {
-    override fun instantiateItem(container: ViewGroup?, position: Int): Any {
+    override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val view = LayoutInflater.from(context).inflate(R.layout.item_image_header_home, container, false)
         val img = view.findViewById<View>(R.id.imgHeaderHome) as ImageView
         img.setBackgroundResource(listImage[position])
@@ -18,11 +18,11 @@ class HeaderAdapter(private val context: Context, private val listImage: Mutable
         return view
     }
 
-    override fun isViewFromObject(view: View?, `object`: Any?): Boolean = view == `object`
+    override fun isViewFromObject(view: View, `object`: Any): Boolean = view == `object`
 
     override fun getCount(): Int = listImage.size
 
-    override fun destroyItem(container: ViewGroup?, position: Int, `object`: Any?) {
+    override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
         container?.removeView(container)
     }
 }

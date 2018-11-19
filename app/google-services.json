@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "886075660991",
+    "firebase_url": "https://da-nang-travel-c3acf.firebaseio.com",
+    "project_id": "da-nang-travel-c3acf",
+    "storage_bucket": "da-nang-travel-c3acf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:886075660991:android:bca218dbdabaa15e",
+        "android_client_info": {
+          "package_name": "com.example.mba0229p.da_nang_travel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "886075660991-ojpo9kqskfbamuvesgia35qhs43d7qnq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9DUb7dFQBa27Iktxc_Jgs9g85BjW_9lc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

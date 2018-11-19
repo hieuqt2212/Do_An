@@ -10,7 +10,7 @@ import com.example.mba0229p.da_nang_travel.ui.base.BaseFragment
 
 class HotelFragment : BaseFragment() {
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return container?.initView(R.layout.fragment_hotel)
     }
 }
