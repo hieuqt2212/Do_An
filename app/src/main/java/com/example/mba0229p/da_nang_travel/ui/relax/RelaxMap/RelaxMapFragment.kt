@@ -24,7 +24,6 @@ import com.google.android.gms.maps.model.PolylineOptions
 import com.google.maps.android.PolyUtil
 import kotlinx.android.synthetic.main.fragment_relax_map.*
 
-
 class RelaxMapFragment : Fragment() {
     private var mGoogleMap: GoogleMap? = null
     private var targetLocation: LatLng? = null
@@ -63,8 +62,6 @@ class RelaxMapFragment : Fragment() {
             }
         }
 
-
-
         targetLocation = LatLng(16.0719673, 108.2217511)
 
         repository.getDrectionMap("${targetLocation?.latitude},${targetLocation?.longitude}", "16.064563,108.149713", Constants.KEY_GOOGLE_MAP, "false", "driving")
@@ -72,7 +69,6 @@ class RelaxMapFragment : Fragment() {
                 .subscribe({
                     drawPolyline(it)
                 }, {})
-
         handleListener()
     }
 
@@ -85,7 +81,6 @@ class RelaxMapFragment : Fragment() {
         polylineOptions.geodesic(false)
         mGoogleMap?.addPolyline(polylineOptions)
     }
-
 
     private fun handleListener() {
         imgMyLocation.setOnClickListener { _ ->
