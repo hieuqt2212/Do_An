@@ -1,7 +1,6 @@
 package com.example.mba0229p.da_nang_travel.ui.home.info
 
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
@@ -25,7 +24,7 @@ class InfoAdapter(private val listInfo: MutableList<InfoHome>) : RecyclerView.Ad
 
     inner class InfoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         init {
-            itemView?.apply {
+            itemView.apply {
                 setOnClickListener {
                     infoListener(adapterPosition)
                 }
@@ -33,7 +32,7 @@ class InfoAdapter(private val listInfo: MutableList<InfoHome>) : RecyclerView.Ad
         }
 
         fun onBind(infoHome: InfoHome) {
-            itemView?.run {
+            itemView.run {
                 tvNameLocation.text = infoHome.nameLocation
                 tvContent.text = infoHome.content
                 Glide.with(context)

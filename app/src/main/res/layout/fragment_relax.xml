@@ -44,9 +44,9 @@
         app:tabIndicatorHeight="0dp"
         app:tabMaxWidth="0dp"
         app:tabMode="fixed"
-        app:tabSelectedTextColor="@android:color/white"
+        app:tabSelectedTextColor="@color/colorAccent"
         app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
-        app:tabTextColor="#ff9393">
+        app:tabTextColor="@android:color/white">
 
         <android.support.design.widget.TabItem
             android:layout_width="match_parent"

@@ -14,7 +14,7 @@ class HeaderAdapter(private val context: Context, private val listImage: Mutable
         val view = LayoutInflater.from(context).inflate(R.layout.item_image_header_home, container, false)
         val img = view.findViewById<View>(R.id.imgHeaderHome) as ImageView
         img.setBackgroundResource(listImage[position])
-        container?.addView(view)
+        container.addView(view)
         return view
     }
 
@@ -23,6 +23,6 @@ class HeaderAdapter(private val context: Context, private val listImage: Mutable
     override fun getCount(): Int = listImage.size
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
-        container?.removeView(container)
+        container.removeView(container)
     }
 }
