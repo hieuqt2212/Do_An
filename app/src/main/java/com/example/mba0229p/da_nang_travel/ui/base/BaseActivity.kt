@@ -1,5 +1,6 @@
 package com.example.mba0229p.da_nang_travel.ui.base
 
+import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -10,6 +11,10 @@ abstract class BaseActivity : AppCompatActivity() {
 
     protected fun addDisposables(vararg ds: Disposable) {
         ds.forEach { subscription.add(it) }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
     }
 
     override fun onPause() {

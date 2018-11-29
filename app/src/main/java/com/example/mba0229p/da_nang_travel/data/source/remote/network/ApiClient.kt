@@ -1,5 +1,6 @@
 package com.example.mba0229p.da_nang_travel.data.source.remote.network
 
+import com.example.mba0229p.da_nang_travel.data.source.datasource.Constants
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
 import okhttp3.Interceptor
@@ -16,9 +17,8 @@ import java.util.concurrent.TimeUnit
 
 open class ApiClient private constructor(url: String? = null) {
 
-    internal var token: String? = null
     internal var isFromUnitTest: Boolean = false
-//    private var baseUrl: String = if (url == null || url.isEmpty()) BuildConfig.BASE_API_URL else url
+    private var baseUrl: String = if (url == null || url.isEmpty()) Constants.BASE_URl else url
 
     companion object : SingletonHolder<ApiClient, String>(::ApiClient) {
         private const val API_TIMEOUT = 10L // 10 minutes
@@ -36,10 +36,6 @@ open class ApiClient private constructor(url: String? = null) {
             // Request customization: add request headers
             val requestBuilder = original.newBuilder()
                     .method(original.method(), original.body())
-//            token = Pref.accessToken
-            if (!token.isNullOrEmpty()) {
-                requestBuilder.addHeader("Authorization", "Bearer $token")
-            }
             val request = requestBuilder.build()
             chain.proceed(request)
         })
@@ -66,10 +62,10 @@ open class ApiClient private constructor(url: String? = null) {
         }
 
         val retrofit = Retrofit.Builder()
-//                .baseUrl(baseUrl)
+                .baseUrl(baseUrl)
                 .addConverterFactory(nullOnEmptyConverterFactory)
                 .addConverterFactory(GsonConverterFactory.create(gson))
-//                .addCallAdapterFactory(CustomCallAdapterFactory.create())
+                .addCallAdapterFactory(CustomCallAdapterFactory.create())
                 .client(client)
                 .build()
         return retrofit.create(ApiService::class.java)

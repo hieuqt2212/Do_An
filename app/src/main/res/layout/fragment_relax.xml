@@ -1,16 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/rlToolbarRelax"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:id="@+id/imgShortFilter"
+            style="@style/ToolBarIconStyle"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_sort" />
+
+        <ImageView
+            android:id="@+id/imgSearch"
+            style="@style/ToolBarIconStyle"
+            android:layout_toStartOf="@+id/imgShortFilter"
+            android:src="@drawable/ic_search" />
+
+        <TextView
+            android:id="@+id/tvTitleRelax"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center|center_horizontal"
+            android:text="Giải trí"
+            android:textColor="@android:color/white"
+            android:textSize="16dp" />
+    </RelativeLayout>
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabRelax"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:text="Giải trí"
-        android:textColor="@color/colorAccent"
-        android:textSize="20dp"
-        android:textStyle="bold|italic" />
-</LinearLayout>
+        android:layout_below="@id/rlToolbarRelax"
+        android:background="@color/colorPrimary"
+        app:tabGravity="fill"
+        app:tabIndicatorHeight="0dp"
+        app:tabMaxWidth="0dp"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@color/colorAccent"
+        app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+        app:tabTextColor="@android:color/white">
+
+        <android.support.design.widget.TabItem
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Danh sách" />
+
+        <android.support.design.widget.TabItem
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bản đồ" />
+
+    </android.support.design.widget.TabLayout>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="23dp"
+        android:layout_above="@+id/viewpagerRelax"
+        android:layout_below="@id/rlToolbarRelax"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="13dp"
+        android:layout_marginTop="13dp"
+        android:background="#dddddd" />
+
+    <com.example.mba0229p.da_nang_travel.widgets.CustomViewPager
+        android:id="@+id/viewpagerRelax"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tabRelax" />
+</RelativeLayout>
