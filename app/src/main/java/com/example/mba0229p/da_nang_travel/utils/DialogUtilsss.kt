@@ -3,7 +3,7 @@ package com.example.mba0229p.da_nang_travel.utils
 import android.support.v4.app.FragmentManager
 import com.example.mba0229p.da_nang_travel.ui.dialog.dialogHome.InfoHomeDialog
 
-object DialogUtils {
+object DialogUtilsss {
 
     fun showDialogHomeInfo(fragmentManager: FragmentManager,
                            title: String? = null,

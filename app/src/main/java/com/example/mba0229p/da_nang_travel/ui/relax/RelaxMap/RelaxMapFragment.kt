@@ -1,19 +1,22 @@
 package com.example.mba0229p.da_nang_travel.ui.relax.RelaxMap
 
+//import com.example.mba0229p.da_nang_travel.utils.LocationUtil
 import android.graphics.Color
 import android.location.Location
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.example.mba0229p.da_nang_travel.R
+import com.example.mba0229p.da_nang_travel.data.model.event.LocationEvent
 import com.example.mba0229p.da_nang_travel.data.source.HomeRepository
 import com.example.mba0229p.da_nang_travel.data.source.datasource.Constants
 import com.example.mba0229p.da_nang_travel.data.source.remote.network.response.direction_map.DirectionMapResponce
 import com.example.mba0229p.da_nang_travel.extension.observeOnUiThread
-import com.example.mba0229p.da_nang_travel.utils.LocationUtil
+import com.example.mba0229p.da_nang_travel.ui.base.BaseFragment
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
@@ -22,9 +25,10 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PolylineOptions
 import com.google.maps.android.PolyUtil
+import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import kotlinx.android.synthetic.main.fragment_relax_map.*
 
-class RelaxMapFragment : Fragment() {
+class RelaxMapFragment : BaseFragment() {
     private var mGoogleMap: GoogleMap? = null
     private var targetLocation: LatLng? = null
     private var userCurrentMarker: Marker? = null
@@ -44,7 +48,7 @@ class RelaxMapFragment : Fragment() {
                 mGoogleMap?.mapType = GoogleMap.MAP_TYPE_NORMAL
                 mGoogleMap?.uiSettings?.isZoomControlsEnabled = true
             }
-            currentLocation = context?.let { LocationUtil(it).getCurrentLocation() }
+//            currentLocation = context?.let { LocationUtil(it).getCurrentLocation() }
             if (currentLocation != null) {
                 currentLocation?.latitude?.let { latitude ->
                     currentLocation?.longitude?.let { longitude ->
@@ -64,12 +68,33 @@ class RelaxMapFragment : Fragment() {
 
         targetLocation = LatLng(16.0719673, 108.2217511)
 
-        repository.getDrectionMap("${targetLocation?.latitude},${targetLocation?.longitude}", "16.064563,108.149713", Constants.KEY_GOOGLE_MAP, "false", "driving")
+        repository.getDrectionMap("${targetLocation?.latitude},${targetLocation?.longitude}", "${currentLocation?.latitude}, ${currentLocation?.longitude}", Constants.KEY_GOOGLE_MAP, "false", "driving")
                 .observeOnUiThread()
                 .subscribe({
-                    drawPolyline(it)
+//                    drawPolyline(it)
                 }, {})
+
+        initViews()
         handleListener()
+    }
+
+    override fun getCurrentLocation(locationEvent: LocationEvent) {
+        Log.d("location", "$locationEvent")
+        currentLocation = locationEvent.location
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        context?.let {
+            imgArrow.setImageDrawable(ContextCompat.getDrawable(it,
+                    if (slidingLayoutBottom.panelState == SlidingUpPanelLayout.PanelState.EXPANDED) R.drawable.ic_map_arrow_down else R.drawable.ic_map_arrow_up))
+        }
+    }
+
+
+    private fun initViews() {
+        handleNavigationBottom()
     }
 
     private fun drawPolyline(directionResult: DirectionMapResponce) {
@@ -84,10 +109,35 @@ class RelaxMapFragment : Fragment() {
 
     private fun handleListener() {
         imgMyLocation.setOnClickListener { _ ->
-            val xxx = context?.let { LocationUtil(it).getCurrentLocation() }
-            xxx?.let { location ->
-                mGoogleMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(location.latitude, location.longitude), 16f))
-            }
+            mGoogleMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation?.longitude?.let { currentLocation?.latitude?.let { it1 -> LatLng(it1, it) } }, 16f))
         }
+    }
+
+    private fun handleNavigationBottom() {
+
+        // Init for location
+        slidingLayoutBottom.panelState = SlidingUpPanelLayout.PanelState.EXPANDED
+        // Init bottom navigation
+        slidingLayoutBottom.addPanelSlideListener(object : SlidingUpPanelLayout.PanelSlideListener {
+
+            override fun onPanelSlide(panel: View, slideOffset: Float) {
+            }
+
+            override fun onPanelStateChanged(panel: View, previousState: SlidingUpPanelLayout.PanelState, newState: SlidingUpPanelLayout.PanelState) {
+                context?.let { context ->
+                    if (newState == SlidingUpPanelLayout.PanelState.DRAGGING) {
+                        imgArrow.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_map_arrow_down))
+                        return
+                    }
+                    if (previousState == SlidingUpPanelLayout.PanelState.COLLAPSED || newState == SlidingUpPanelLayout.PanelState.EXPANDED) {
+                        imgArrow.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_map_arrow_down))
+                        return
+                    }
+                    if (previousState == SlidingUpPanelLayout.PanelState.EXPANDED || newState == SlidingUpPanelLayout.PanelState.COLLAPSED) {
+                        imgArrow.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_map_arrow_up))
+                    }
+                }
+            }
+        })
     }
 }

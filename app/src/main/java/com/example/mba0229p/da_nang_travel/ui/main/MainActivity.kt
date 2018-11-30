@@ -2,6 +2,7 @@ package com.example.mba0229p.da_nang_travel.ui.main
 
 import android.os.Bundle
 import com.example.mba0229p.da_nang_travel.R
+import com.example.mba0229p.da_nang_travel.data.model.event.LocationEvent
 import com.example.mba0229p.da_nang_travel.extension.observeOnUiThread
 import com.example.mba0229p.da_nang_travel.ui.base.BaseActivity
 import com.example.mba0229p.da_nang_travel.ui.main.header_home.HeaderAdapter
@@ -11,6 +12,7 @@ import java.util.concurrent.TimeUnit
 
 
 class MainActivity : BaseActivity() {
+
     private var positionItemHeaderHome = 0
 
     private val listImageHeader = mutableListOf(R.drawable.bg_banner_app, R.drawable.bg_banner_app_2, R.drawable.bg_banner_app_3)
@@ -51,5 +53,9 @@ class MainActivity : BaseActivity() {
             }
             false
         }
+    }
+
+    override fun getCurrentLocation(locationEvent: LocationEvent) {
+        super.getCurrentLocation(locationEvent)
     }
 }

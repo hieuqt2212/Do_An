@@ -1,12 +1,23 @@
 package com.example.mba0229p.da_nang_travel.ui.base
 
+import android.os.Bundle
 import android.support.annotation.IdRes
 import android.support.v4.app.Fragment
+import com.example.mba0229p.da_nang_travel.data.model.event.LocationEvent
+import com.example.mba0229p.da_nang_travel.extension.observeOnUiThread
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
+import jp.co.netprotections.atoneregi.data.source.remote.network.RxBus
 
-abstract class BaseFragment: Fragment() {
+abstract class BaseFragment : Fragment() {
     private val subscription: CompositeDisposable = CompositeDisposable()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        addDisposables(RxBus.listenBehavior(LocationEvent::class.java).observeOnUiThread().subscribe {
+            getCurrentLocation(it)
+        })
+    }
 
     override fun onResume() {
         super.onResume()
@@ -26,6 +37,8 @@ abstract class BaseFragment: Fragment() {
     protected fun addDisposables(vararg ds: Disposable) {
         ds.forEach { subscription.add(it) }
     }
+
+    open fun getCurrentLocation(locationEvent: LocationEvent) {}
 
 //    protected fun getCurrentFragment(): Fragment = (activity as BaseActivity).getCurrentFragment()
 
