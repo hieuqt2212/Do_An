@@ -10,7 +10,6 @@ import android.support.annotation.NonNull
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.widget.Toast
 import com.example.mba0229p.da_nang_travel.data.model.event.LocationEvent
 import com.example.mba0229p.da_nang_travel.extension.observeOnUiThread
@@ -39,10 +38,11 @@ abstract class BaseActivity : AppCompatActivity(),
         const val REQUEST_LOCATION_PERMISSION = 100
     }
 
-    private var mGoogleApiClient: GoogleApiClient? = null
+    private var disposable: Disposable? = null
     private var mLocationRequest: LocationRequest? = null
     private var mLastLocation: Location? = null
     private val subscription: CompositeDisposable = CompositeDisposable()
+    private var mGoogleApiClient: GoogleApiClient? = null
 
     protected fun addDisposables(vararg ds: Disposable) {
         ds.forEach { subscription.add(it) }
@@ -50,18 +50,19 @@ abstract class BaseActivity : AppCompatActivity(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        mGoogleApiClient?.connect()
         // Check device support google play service
         if (isPlayServicesAvailable()) {
             setUpLocationClientIfNeeded()
             buildLocationRequest()
         }
-        mGoogleApiClient?.connect()
-        addDisposables(Observable.interval(1, TimeUnit.SECONDS)
+        disposable = Observable.interval(1, TimeUnit.SECONDS)
                 .observeOnUiThread()
                 .subscribe {
                     checkGPS()
                     requestLocationPermissions()
-                })
+                    disposable?.dispose()
+                }
     }
 
     private fun checkGPS() {
@@ -110,7 +111,6 @@ abstract class BaseActivity : AppCompatActivity(),
     override fun onStart() {
         super.onStart()
         if (mGoogleApiClient != null) {
-            Log.d("xxx", "connect")
             mGoogleApiClient?.connect()
         }
     }
@@ -123,7 +123,6 @@ abstract class BaseActivity : AppCompatActivity(),
     }
 
     override fun onConnected(bundle: Bundle?) {
-        Log.d("xxx", "onConnected")
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this,
                         Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return
@@ -131,6 +130,7 @@ abstract class BaseActivity : AppCompatActivity(),
         val lastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient)
         if (lastLocation != null) {
             mLastLocation = lastLocation
+            RxBus.publishToBehaviorSubject(LocationEvent(lastLocation))
         }
     }
 
@@ -139,13 +139,15 @@ abstract class BaseActivity : AppCompatActivity(),
     }
 
     override fun onLocationChanged(location: Location) {
-        if (mLastLocation?.longitude?.let { mLastLocation?.altitude?.let { it1 -> LocationUtils.distanceBetween(it1, it, location.latitude, location.longitude) } }!! >= 5) {
+        if (mLastLocation == null || mLastLocation?.longitude?.let { mLastLocation?.latitude?.let { it1 -> LocationUtils.distanceBetween(it1, it, location.latitude, location.longitude) } }!! >= 500) {
             RxBus.publishToBehaviorSubject(LocationEvent(location))
         }
         mLastLocation = location
     }
 
-    override fun onConnectionFailed(connectionResult: ConnectionResult) {}
+    override fun onConnectionFailed(connectionResult: ConnectionResult) {
+        mGoogleApiClient?.connect()
+    }
 
     /**
      * This function return the fragment is displaying on top of container.
