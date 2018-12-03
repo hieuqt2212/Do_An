@@ -9,7 +9,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import jp.co.netprotections.atoneregi.data.source.remote.network.RxBus
 
-abstract class BaseFragment : Fragment() {
+open class BaseFragment : Fragment() {
     private val subscription: CompositeDisposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,8 +38,6 @@ abstract class BaseFragment : Fragment() {
         ds.forEach { subscription.add(it) }
     }
 
-    open fun getCurrentLocation(locationEvent: LocationEvent) {}
-
 //    protected fun getCurrentFragment(): Fragment = (activity as BaseActivity).getCurrentFragment()
 
     protected fun getChildCurrentFragment(id: Int): Fragment = childFragmentManager.findFragmentById(id)
@@ -63,5 +61,8 @@ abstract class BaseFragment : Fragment() {
             addToBackStack(fragment::class.java.name)
             commit()
         }
+    }
+
+    open fun getCurrentLocation(locationEvent: LocationEvent) {
     }
 }

@@ -10,7 +10,7 @@ import com.example.mba0229p.da_nang_travel.data.model.InfoHome
 import com.example.mba0229p.da_nang_travel.data.source.HomeRepository
 import com.example.mba0229p.da_nang_travel.extension.initView
 import com.example.mba0229p.da_nang_travel.ui.base.BaseFragment
-import com.example.mba0229p.da_nang_travel.utils.DialogUtilsss
+import com.example.mba0229p.da_nang_travel.utils.DialogUtils
 import kotlinx.android.synthetic.main.fragment_info.*
 
 class InfoFragment : BaseFragment() {
@@ -40,7 +40,7 @@ class InfoFragment : BaseFragment() {
 
     private fun handleListener() {
         recyclerViewInfoHomeAdapter?.infoListener = { position ->
-            fragmentManager?.let { DialogUtilsss.showDialogHomeInfo(it, listInfoHome[position].nameLocation, listInfoHome[position].image?.toMutableList(), listInfoHome[position].content) }
+            fragmentManager?.let { DialogUtils.showDialogHomeInfo(it, listInfoHome[position].nameLocation, listInfoHome[position].image?.toMutableList(), listInfoHome[position].content) }
         }
     }
 }

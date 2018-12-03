@@ -10,7 +10,7 @@ import com.example.mba0229p.da_nang_travel.data.model.EventHome
 import com.example.mba0229p.da_nang_travel.data.source.HomeRepository
 import com.example.mba0229p.da_nang_travel.extension.initView
 import com.example.mba0229p.da_nang_travel.ui.base.BaseFragment
-import com.example.mba0229p.da_nang_travel.utils.DialogUtilsss
+import com.example.mba0229p.da_nang_travel.utils.DialogUtils
 import kotlinx.android.synthetic.main.fragment_info.*
 
 class EventFragment : BaseFragment() {
@@ -39,7 +39,7 @@ class EventFragment : BaseFragment() {
 
     private fun handleListener() {
         recyclerViewEventHomeAdapter?.eventListener = { position ->
-            fragmentManager?.let { DialogUtilsss.showDialogHomeInfo(it, listEventHome[position].nameEvent, listEventHome[position].image?.toMutableList(), listEventHome[position].content) }
+            fragmentManager?.let { DialogUtils.showDialogHomeInfo(it, listEventHome[position].nameEvent, listEventHome[position].image?.toMutableList(), listEventHome[position].content) }
         }
     }
 }
