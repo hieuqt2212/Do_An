@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="#FF3AFFAA">
 
     <ImageView
+        android:padding="5dp"
         android:id="@+id/imgDialog"
         android:layout_width="140dp"
         android:layout_height="140dp"

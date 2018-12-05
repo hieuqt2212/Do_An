@@ -3,6 +3,7 @@ package com.example.mba0229p.da_nang_travel.ui.relax.RelaxMap
 import android.graphics.Color
 import android.location.Location
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import com.google.maps.android.PolyUtil
+import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import kotlinx.android.synthetic.main.fragment_relax_map.*
 
 class RelaxMapFragment : BaseFragment() {
@@ -50,8 +52,12 @@ class RelaxMapFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        initViews()
         handleListener()
+    }
+
+    private fun initViews() {
+        handleNavigationBottom()
     }
 
     override fun getCurrentLocation(locationEvent: LocationEvent) {
@@ -64,7 +70,7 @@ class RelaxMapFragment : BaseFragment() {
         }
         mGoogleMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(locationEvent.location.latitude, locationEvent.location.longitude), 16f))
 
-        targetLocation = LatLng(16.0719673, 108.2217511)
+        targetLocation = LatLng(16.0265452, 108.0304153)
 
         repository.getDrectionMap("${targetLocation?.latitude},${targetLocation?.longitude}",
                 "${locationEvent.location.latitude},${locationEvent.location.longitude}",
@@ -89,6 +95,16 @@ class RelaxMapFragment : BaseFragment() {
         polylineOptions.color(Color.BLUE)
         polylineOptions.geodesic(false)
         polyline = mGoogleMap?.addPolyline(polylineOptions)
+        targetLocation?.latitude?.let { latitude ->
+            targetLocation?.longitude?.let { longitude ->
+                mGoogleMap?.addMarker(
+                        MarkerOptions()
+                                .position(LatLng(latitude, longitude))
+                                .title("Bà Nà Hill")).apply {
+                    this?.showInfoWindow()
+                }
+            }
+        }
     }
 
     private fun handleListener() {
@@ -97,5 +113,39 @@ class RelaxMapFragment : BaseFragment() {
                 mGoogleMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(currentLocation.latitude, currentLocation.longitude), 16f))
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        context?.let {
+            imgArrow.setImageDrawable(ContextCompat.getDrawable(it,
+                    if (slidingLayoutBottom.panelState == SlidingUpPanelLayout.PanelState.EXPANDED) R.drawable.ic_map_arrow_down else R.drawable.ic_map_arrow_up))
+        }
+    }
+
+    private fun handleNavigationBottom() {
+        // Init for location
+        slidingLayoutBottom.panelState = SlidingUpPanelLayout.PanelState.EXPANDED
+        // Init bottom navigation
+        slidingLayoutBottom.addPanelSlideListener(object : SlidingUpPanelLayout.PanelSlideListener {
+            override fun onPanelSlide(panel: View, slideOffset: Float) {
+            }
+
+            override fun onPanelStateChanged(panel: View, previousState: SlidingUpPanelLayout.PanelState, newState: SlidingUpPanelLayout.PanelState) {
+                context?.let { context ->
+                    if (newState == SlidingUpPanelLayout.PanelState.DRAGGING) {
+                        imgArrow.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_map_arrow_down))
+                        return
+                    }
+                    if (previousState == SlidingUpPanelLayout.PanelState.COLLAPSED || newState == SlidingUpPanelLayout.PanelState.EXPANDED) {
+                        imgArrow.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_map_arrow_down))
+                        return
+                    }
+                    if (previousState == SlidingUpPanelLayout.PanelState.EXPANDED || newState == SlidingUpPanelLayout.PanelState.COLLAPSED) {
+                        imgArrow.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_map_arrow_up))
+                    }
+                }
+            }
+        })
     }
 }

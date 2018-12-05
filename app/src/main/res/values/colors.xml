@@ -8,4 +8,6 @@
 
     <color name="colorDialogBackGroundTransparent">#00ff0000</color>
 
+    <color name="colorTheme_app">#FFE6FF67</color>
+
 </resources>

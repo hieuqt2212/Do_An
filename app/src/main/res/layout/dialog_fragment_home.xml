@@ -3,17 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_dialog_info_home"
-    android:padding="10dp">
+    android:background="@drawable/bg_dialog_info_home">
 
     <TextView
         android:id="@+id/tvItemTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
         android:gravity="center"
-        android:layout_marginTop="5dp"
-        android:textColor="@android:color/black"
-        android:textSize="18dp"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="20dp"
         android:textStyle="italic|bold"
         tools:text="asdasdasdasdasdasdasda" />
 
@@ -32,8 +33,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/recyclerViewItemAvatar"
         android:layout_marginBottom="5dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:gravity="start"
         android:textSize="16dp"
@@ -45,6 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvItemContent"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
         android:padding="5dp"
         android:text="Cancel"
         android:textColor="@android:color/holo_red_light" />
