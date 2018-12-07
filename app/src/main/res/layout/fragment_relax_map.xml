@@ -47,22 +47,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:paddingTop="5dp"
                     android:src="@drawable/ic_map_arrow_down" />
             </FrameLayout>
 
             <FrameLayout
                 android:id="@+id/flContent"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/rlArrow"
-                android:background="@android:color/white">
+                android:background="@android:color/transparent">
 
                 <com.example.mba0229p.da_nang_travel.widgets.EndlessRecyclerView
-                    android:id="@+id/todoRecyclerView"
+                    android:id="@+id/relaxRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/white"
+                    android:background="@android:color/transparent"
                     android:scrollbars="none" />
 
                 <TextView
@@ -77,7 +76,6 @@
                     android:textColor="#0f000000"
                     android:visibility="gone" />
             </FrameLayout>
-
         </RelativeLayout>
     </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 
