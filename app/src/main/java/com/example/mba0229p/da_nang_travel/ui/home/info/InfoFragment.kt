@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.mba0229p.da_nang_travel.R
 import com.example.mba0229p.da_nang_travel.data.model.InfoHome
-import com.example.mba0229p.da_nang_travel.data.source.HomeRepository
+import com.example.mba0229p.da_nang_travel.data.source.Repository
 import com.example.mba0229p.da_nang_travel.extension.initView
 import com.example.mba0229p.da_nang_travel.ui.base.BaseFragment
 import com.example.mba0229p.da_nang_travel.utils.DialogUtils
@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.fragment_info.*
 class InfoFragment : BaseFragment() {
 
     private var listInfoHome = mutableListOf<InfoHome>()
-    var recyclerViewInfoHomeAdapter: InfoAdapter? = null
+    private var recyclerViewInfoHomeAdapter: InfoAdapter? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
             container?.initView(R.layout.fragment_info)
@@ -30,7 +30,7 @@ class InfoFragment : BaseFragment() {
             layoutManager = LinearLayoutManager(context)
         }
 
-        HomeRepository().homeInfoRepo().subscribe({
+        Repository().homeInfoRepo().subscribe({
             listInfoHome.addAll(it)
             recyclerViewInfoHomeAdapter?.notifyDataSetChanged()
         }, {})

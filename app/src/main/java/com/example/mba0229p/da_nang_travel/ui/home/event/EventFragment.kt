@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.mba0229p.da_nang_travel.R
 import com.example.mba0229p.da_nang_travel.data.model.EventHome
-import com.example.mba0229p.da_nang_travel.data.source.HomeRepository
+import com.example.mba0229p.da_nang_travel.data.source.Repository
 import com.example.mba0229p.da_nang_travel.extension.initView
 import com.example.mba0229p.da_nang_travel.ui.base.BaseFragment
 import com.example.mba0229p.da_nang_travel.utils.DialogUtils
@@ -29,7 +29,8 @@ class EventFragment : BaseFragment() {
             layoutManager = LinearLayoutManager(context)
         }
 
-        HomeRepository().homeEventRepo().subscribe({
+        Repository().homeEventRepo().subscribe({
+            listEventHome.clear()
             listEventHome.addAll(it)
             recyclerViewEventHomeAdapter?.notifyDataSetChanged()
         }, {})

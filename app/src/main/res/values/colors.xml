@@ -2,12 +2,12 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#ffff</color>
 
     <color name="colorAppColorBlue">#0099dd</color>
 
     <color name="colorDialogBackGroundTransparent">#00ff0000</color>
 
-    <color name="colorTheme_app">#FFE6FF67</color>
-
+    <color name="colorTheme_app">#f1ee3e</color>
+    <color name="color_app_gray">#d6d6d6</color>
 </resources>

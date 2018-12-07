@@ -8,12 +8,16 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.support.annotation.NonNull
 import android.support.v4.app.ActivityCompat
+import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.example.mba0229p.da_nang_travel.data.model.event.LocationEvent
 import com.example.mba0229p.da_nang_travel.extension.observeOnUiThread
-import com.example.mba0229p.da_nang_travel.utils.LocationUtils
+import com.example.mba0229p.da_nang_travel.ui.eat.EatFragment
+import com.example.mba0229p.da_nang_travel.ui.home.HomeFragment
+import com.example.mba0229p.da_nang_travel.ui.hotel.HotelFragment
+import com.example.mba0229p.da_nang_travel.ui.relax.RelaxFragment
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.common.api.GoogleApiClient
@@ -24,6 +28,7 @@ import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import jp.co.netprotections.atoneregi.data.source.remote.network.RxBus
+import kotlinx.android.synthetic.main.activity_main.*
 import java.util.concurrent.TimeUnit
 
 
@@ -33,14 +38,14 @@ abstract class BaseActivity : AppCompatActivity(),
         LocationListener {
 
     private companion object {
-        const val UPDATE_INTERVAL: Long = 5000
+        const val UPDATE_INTERVAL: Long = 90000
         const val FASTEST_INTERVAL: Long = 5000
+        const val MINIMUM_DISTANCE_BETWEEN_UPDATE: Float = 500F
         const val REQUEST_LOCATION_PERMISSION = 100
     }
 
     private var disposable: Disposable? = null
     private var mLocationRequest: LocationRequest? = null
-    private var mLastLocation: Location? = null
     private val subscription: CompositeDisposable = CompositeDisposable()
     private var mGoogleApiClient: GoogleApiClient? = null
 
@@ -51,6 +56,7 @@ abstract class BaseActivity : AppCompatActivity(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mGoogleApiClient?.connect()
+
         // Check device support google play service
         if (isPlayServicesAvailable()) {
             setUpLocationClientIfNeeded()
@@ -63,15 +69,6 @@ abstract class BaseActivity : AppCompatActivity(),
                     requestLocationPermissions()
                     disposable?.dispose()
                 }
-    }
-
-    private fun checkGPS() {
-        if (!isGpsOn()) {
-            Toast.makeText(this, "GPS is OFF",
-                    Toast.LENGTH_SHORT).show();
-            return
-        }
-        startLocationUpdates()
     }
 
     override fun onPause() {
@@ -127,11 +124,7 @@ abstract class BaseActivity : AppCompatActivity(),
                         Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return
         }
-        val lastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient)
-        if (lastLocation != null) {
-            mLastLocation = lastLocation
-            RxBus.publishToBehaviorSubject(LocationEvent(lastLocation))
-        }
+        RxBus.publishToBehaviorSubject(LocationEvent(LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient)))
     }
 
     override fun onConnectionSuspended(i: Int) {
@@ -139,10 +132,7 @@ abstract class BaseActivity : AppCompatActivity(),
     }
 
     override fun onLocationChanged(location: Location) {
-        if (mLastLocation == null || mLastLocation?.longitude?.let { mLastLocation?.latitude?.let { it1 -> LocationUtils.distanceBetween(it1, it, location.latitude, location.longitude) } }!! >= 500) {
-            RxBus.publishToBehaviorSubject(LocationEvent(location))
-        }
-        mLastLocation = location
+        RxBus.publishToBehaviorSubject(LocationEvent(location))
     }
 
     override fun onConnectionFailed(connectionResult: ConnectionResult) {
@@ -158,6 +148,15 @@ abstract class BaseActivity : AppCompatActivity(),
      * This function is used to define subscription
      */
     open fun onBindViewModel() {
+    }
+
+    private fun checkGPS() {
+        if (!isGpsOn()) {
+            Toast.makeText(this, "GPS is OFF",
+                    Toast.LENGTH_SHORT).show();
+            return
+        }
+        startLocationUpdates()
     }
 
     private fun startLocationUpdates() {
@@ -209,5 +208,14 @@ abstract class BaseActivity : AppCompatActivity(),
         mLocationRequest?.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         mLocationRequest?.interval = UPDATE_INTERVAL
         mLocationRequest?.fastestInterval = FASTEST_INTERVAL
+        mLocationRequest?.smallestDisplacement = MINIMUM_DISTANCE_BETWEEN_UPDATE
     }
+
+    fun getCurrentFragment(): Fragment =
+            when (viewPagerContain.currentItem) {
+                0 -> HomeFragment()
+                1 -> RelaxFragment()
+                2 -> EatFragment()
+                else -> HotelFragment()
+            }
 }

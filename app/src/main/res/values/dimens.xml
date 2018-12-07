@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="item_todo_map_margin_horizontal_normal">0dp</dimen>
+    <dimen name="item_todo_map_margin_horizontal_bottom">5dp</dimen>
+    <dimen name="item_todo_map_margin_horizontal_top">5dp</dimen>
+    <dimen name="item_todo_map_margin_horizontal_center">20dp</dimen>
+    <dimen name="item_todo_map_margin_horizontal">5dp</dimen>
+</resources>

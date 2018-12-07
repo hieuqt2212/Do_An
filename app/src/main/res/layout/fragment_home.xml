@@ -1,12 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorTheme_app">
+
+    <android.support.design.widget.CollapsingToolbarLayout
+        android:id="@+id/viewToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:fitsSystemWindows="true"
+        app:contentScrim="@android:color/holo_blue_bright"
+        app:expandedTitleMarginStart="20dp"
+        app:expandedTitleTextAppearance="@style/TextAppearance.AppCompat.Subhead"
+        app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.example.mba0229p.da_nang_travel.widgets.CustomViewPager
+                android:id="@+id/viewPagerHeaderHome"
+                android:layout_width="match_parent"
+                android:layout_height="250dp" />
+
+        </RelativeLayout>
+    </android.support.design.widget.CollapsingToolbarLayout>
 
     <TextView
         android:id="@+id/labelHome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/viewToolbar"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
