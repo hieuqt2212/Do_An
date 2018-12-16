@@ -15,6 +15,7 @@ import com.example.mba0229p.da_nang_travel.data.model.Relax
 import com.example.mba0229p.da_nang_travel.data.model.event.LocationEvent
 import com.example.mba0229p.da_nang_travel.ui.base.BaseFragment
 import com.example.mba0229p.da_nang_travel.ui.relax.RelaxFragment
+import com.example.mba0229p.da_nang_travel.utils.DialogUtils
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
@@ -204,8 +205,18 @@ class RelaxMapFragment : BaseFragment() {
 
     private fun handleListener() {
         imgMyLocation.setOnClickListener {
-            currentLocation?.let { currentLocation ->
-                mGoogleMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(currentLocation.latitude, currentLocation.longitude), 16f))
+            if (currentLocation == null) {
+                fragmentManager?.let { it1 ->
+                    DialogUtils.showDialogDefault(it1,
+                            null,
+                            "Vui lòng bật chức năng định vị!!!",
+                            null,
+                            getString(android.R.string.ok))
+                }
+            } else {
+                currentLocation?.let { currentLocation ->
+                    mGoogleMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(currentLocation.latitude, currentLocation.longitude), 16f))
+                }
             }
         }
     }

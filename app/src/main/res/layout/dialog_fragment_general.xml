@@ -1,0 +1,70 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_general_dialog"
+    android:paddingTop="8dp">
+
+    <TextView
+        android:id="@+id/tvDialogTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="8dp"
+        android:textColor="#666666"
+        android:textSize="14dp"
+        android:textStyle="bold"
+        tools:text="Title" />
+
+    <TextView
+        android:id="@+id/tvDialogMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvDialogTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="8dp"
+        android:lineSpacingExtra="4dp"
+        android:textAlignment="center"
+        android:textColor="#666666"
+        android:textSize="13dp"
+        tools:text="Message" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvDialogMessage"
+        android:layout_marginTop="15dp">
+
+        <Button
+            android:id="@+id/btnDialogLeft"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/bg_btn_dialog_left"
+            android:textAllCaps="false"
+            android:textColor="#ee1c2e"
+            android:textStyle="bold"
+            tools:text="Cancel" />
+
+        <View
+            android:id="@+id/centerLine"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#cdcdcd" />
+
+        <Button
+            android:id="@+id/btnDialogRight"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/bg_btn_dialog_right"
+            android:textAllCaps="false"
+            android:textColor="#ee1c2e"
+            android:textStyle="bold"
+            tools:text="Ok" />
+    </LinearLayout>
+</RelativeLayout>

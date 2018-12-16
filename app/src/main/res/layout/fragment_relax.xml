@@ -12,16 +12,10 @@
         android:background="@color/colorPrimary">
 
         <ImageView
-            android:id="@+id/imgShortFilter"
+            android:id="@+id/imgSearch"
             style="@style/ToolBarIconStyle"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="10dp"
-            android:src="@drawable/ic_sort" />
-
-        <ImageView
-            android:id="@+id/imgSearch"
-            style="@style/ToolBarIconStyle"
-            android:layout_toStartOf="@+id/imgShortFilter"
             android:src="@drawable/ic_search" />
 
         <TextView
@@ -63,16 +57,51 @@
     <View
         android:layout_width="1dp"
         android:layout_height="23dp"
-        android:layout_above="@+id/viewpagerRelax"
         android:layout_below="@id/rlToolbarRelax"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="13dp"
         android:layout_marginTop="13dp"
         android:background="#dddddd" />
 
-    <com.example.mba0229p.da_nang_travel.widgets.CustomViewPager
-        android:id="@+id/viewpagerRelax"
+    <RelativeLayout
+        android:id="@+id/rl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/tabRelax" />
+        android:layout_below="@+id/tabRelax">
+
+        <LinearLayout
+            android:id="@+id/llSort"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingEnd="10dp"
+            android:paddingStart="10dp">
+
+            <com.jaredrummler.materialspinner.MaterialSpinner
+                android:id="@+id/spinnerStyleSort"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:ms_background_color="@color/color_app_gray"
+                app:ms_hint="Chọn kiểu lọc"
+                app:ms_text_color="@android:color/holo_red_dark" />
+
+            <com.jaredrummler.materialspinner.MaterialSpinner
+                android:id="@+id/spinnerListSort"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:visibility="gone"
+                app:ms_background_color="@color/color_app_gray"
+                app:ms_text_color="@android:color/holo_red_dark" />
+        </LinearLayout>
+
+        <com.example.mba0229p.da_nang_travel.widgets.CustomViewPager
+            android:id="@+id/viewpagerRelax"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/llSort" />
+    </RelativeLayout>
 </RelativeLayout>

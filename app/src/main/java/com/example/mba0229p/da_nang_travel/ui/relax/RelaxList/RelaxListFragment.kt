@@ -9,6 +9,7 @@ import com.example.mba0229p.da_nang_travel.R
 import com.example.mba0229p.da_nang_travel.data.model.Relax
 import com.example.mba0229p.da_nang_travel.ui.base.BaseFragment
 import com.example.mba0229p.da_nang_travel.ui.relax.RelaxFragment
+import com.example.mba0229p.da_nang_travel.utils.DialogUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_relax_list.*
 
@@ -21,7 +22,11 @@ class RelaxListFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        relaxListAdapter = RelaxListAdapter(list)
+        relaxListAdapter = RelaxListAdapter(list).apply {
+            itemRelaxListener = {
+                fragmentManager?.let { it1 -> DialogUtils.showDialogDetail(it1, list[it]) }
+            }
+        }
         recyclerViewRelaxList.apply {
             adapter = relaxListAdapter
             layoutManager = LinearLayoutManager(context)

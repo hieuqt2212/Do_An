@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.fragment_info.*
 class EventFragment : BaseFragment() {
 
     private var listEventHome = mutableListOf<EventHome>()
-    var recyclerViewEventHomeAdapter: EventAdapter? = null
+    private var recyclerViewEventHomeAdapter: EventAdapter? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
             container?.initView(R.layout.fragment_info)
@@ -29,11 +29,16 @@ class EventFragment : BaseFragment() {
             layoutManager = LinearLayoutManager(context)
         }
 
-        Repository().homeEventRepo().subscribe({
-            listEventHome.clear()
-            listEventHome.addAll(it)
-            recyclerViewEventHomeAdapter?.notifyDataSetChanged()
-        }, {})
+        context?.let { context ->
+            Repository().homeEventRepo(context)
+                    .doOnSubscribe { dialog?.show() }
+                    .doFinally { dialog?.dismiss() }
+                    .subscribe({
+                        listEventHome.clear()
+                        listEventHome.addAll(it)
+                        recyclerViewEventHomeAdapter?.notifyDataSetChanged()
+                    }, {})
+        }
 
         handleListener()
     }

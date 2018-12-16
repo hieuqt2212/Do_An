@@ -1,50 +1,55 @@
-package com.example.mba0229p.da_nang_travel.ui.dialog.dialogHome
+package com.example.mba0229p.da_nang_travel.ui.dialog
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.DialogInterface
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v4.app.FragmentManager
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.Window
-import android.widget.Button
 import android.widget.TextView
 import com.example.mba0229p.da_nang_travel.R
+import com.example.mba0229p.da_nang_travel.data.model.Relax
 
-class InfoHomeDialog : DialogFragment() {
+
+class DialogListMapDetail : DialogFragment() {
+
+    internal var data: Relax? = null
 
     companion object {
         var isShowing = false
     }
 
-    internal var listImage = mutableListOf<String>()
-    internal var title: String? = null
-    internal var content: String? = null
-    private var imageAdapter: DialogHomeAdapter? = null
-
+    @SuppressLint("MissingPermission")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return super.onCreateDialog(savedInstanceState).apply {
             window?.run {
                 requestFeature(Window.FEATURE_NO_TITLE)
                 setBackgroundDrawableResource(R.color.colorDialogBackGroundTransparent)
             }
-            setContentView(R.layout.dialog_fragment_home)
+            setContentView(R.layout.dialog_fragment_detail)
 
+            val btnCall = findViewById<TextView>(R.id.tvCall)
+            val btnMaps = findViewById<TextView>(R.id.tvMaps)
             val tvItemTitle = findViewById<TextView>(R.id.tvItemTitle)
             val tvItemContent = findViewById<TextView>(R.id.tvItemContent)
-            val recyclerViewItemAvatar = findViewById<RecyclerView>(R.id.recyclerViewItemAvatar)
-            val btnItemCancel = findViewById<Button>(R.id.btnItemCancel)
 
-            imageAdapter = DialogHomeAdapter(listImage)
-            recyclerViewItemAvatar.run {
-                adapter = imageAdapter
-                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            btnCall.setOnClickListener {
+                if (data?.phone != null) {
+                    val intent = Intent(Intent.ACTION_CALL)
+                    intent.data = Uri.parse("tel:" + data?.phone.toString())
+                    context.startActivity(intent)
+                }
             }
-            tvItemTitle.text = title
-            tvItemContent.text = content
-            btnItemCancel.setOnClickListener {
-                dismiss()
+
+            tvItemTitle.text = data?.nameLocation
+
+            tvItemContent.text = data?.description
+
+            btnMaps.setOnClickListener {
+                // Open Maps
             }
         }
     }
