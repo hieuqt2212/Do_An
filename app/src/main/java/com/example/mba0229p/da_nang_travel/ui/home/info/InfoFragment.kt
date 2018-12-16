@@ -30,10 +30,14 @@ class InfoFragment : BaseFragment() {
             layoutManager = LinearLayoutManager(context)
         }
 
-        Repository().homeInfoRepo().subscribe({
-            listInfoHome.addAll(it)
-            recyclerViewInfoHomeAdapter?.notifyDataSetChanged()
-        }, {})
+        context?.let {
+            Repository().homeInfoRepo(it)
+                    .doFinally {}
+                    .subscribe({
+                        listInfoHome.addAll(it)
+                        recyclerViewInfoHomeAdapter?.notifyDataSetChanged()
+                    }, {})
+        }
 
         handleListener()
     }

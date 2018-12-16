@@ -7,10 +7,11 @@ import com.example.mba0229p.da_nang_travel.R
 import com.example.mba0229p.da_nang_travel.data.model.Relax
 import com.example.mba0229p.da_nang_travel.extension.initView
 import kotlinx.android.synthetic.main.item_list_relax.view.*
+import java.util.concurrent.TimeUnit
 
 class RelaxListAdapter(private val listRelax: MutableList<Relax>) : RecyclerView.Adapter<RelaxListAdapter.RelaxListVH>() {
 
-    private var itemRelaxListener: (Int) -> Unit = {}
+    internal var itemRelaxListener: (Int) -> Unit = {}
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RelaxListVH =
             RelaxListVH(parent.initView(R.layout.item_list_relax))
 
@@ -32,8 +33,8 @@ class RelaxListAdapter(private val listRelax: MutableList<Relax>) : RecyclerView
         fun onBind(relax: Relax) {
             itemView.apply {
                 tvAddress.text = relax.address
-                tvHour.text = relax.hour.toString()
-                tvDistance.text = relax.distance.toString()
+                tvHour.text = if (relax.hour == null) "-- h" else String.format("%d phút", TimeUnit.SECONDS.toMinutes(relax.hour!!.toLong()))
+                tvDistance.text = if (relax.distance == null) "-- Km" else String.format("%02f Km", (relax.distance!!) / 1000)
                 tvNameLocation.text = relax.nameLocation
             }
         }

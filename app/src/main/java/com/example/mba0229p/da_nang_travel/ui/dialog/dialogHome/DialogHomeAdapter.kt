@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.example.mba0229p.da_nang_travel.R
 import com.example.mba0229p.da_nang_travel.extension.initView
+import com.example.mba0229p.da_nang_travel.widgets.MyAppGlideModule
 import kotlinx.android.synthetic.main.item_dialog_info_home.view.*
 
 class DialogHomeAdapter(private val listImage: MutableList<String>) : RecyclerView.Adapter<DialogHomeAdapter.ViewHolder>() {
@@ -24,6 +25,7 @@ class DialogHomeAdapter(private val listImage: MutableList<String>) : RecyclerVi
                 Glide.with(context)
                         .load(image)
                         .into(imgDialog)
+
             }
         }
     }

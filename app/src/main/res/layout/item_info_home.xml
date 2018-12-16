@@ -11,10 +11,11 @@
 
         <ImageView
             android:id="@+id/imgAvatar"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
             android:layout_centerVertical="true"
-            android:contentDescription="@null" />
+            android:contentDescription="@null"
+            android:scaleType="fitCenter" />
 
         <TextView
             android:id="@+id/tvNameLocation"
@@ -36,11 +37,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/tvNameLocation"
+            android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/imgAvatar"
             android:ellipsize="end"
             android:gravity="center"
             android:maxLines="3"
-            android:layout_centerVertical="true"
             android:paddingBottom="5dp"
             android:paddingEnd="10dp"
             android:paddingStart="10dp"

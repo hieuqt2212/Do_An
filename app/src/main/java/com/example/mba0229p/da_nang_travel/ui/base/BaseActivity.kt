@@ -13,11 +13,13 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.example.mba0229p.da_nang_travel.data.model.event.LocationEvent
+import com.example.mba0229p.da_nang_travel.data.model.event.NetworkErrorEvent
 import com.example.mba0229p.da_nang_travel.extension.observeOnUiThread
 import com.example.mba0229p.da_nang_travel.ui.eat.EatFragment
 import com.example.mba0229p.da_nang_travel.ui.home.HomeFragment
 import com.example.mba0229p.da_nang_travel.ui.hotel.HotelFragment
 import com.example.mba0229p.da_nang_travel.ui.relax.RelaxFragment
+import com.example.mba0229p.da_nang_travel.utils.DialogUtils
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.common.api.GoogleApiClient
@@ -124,7 +126,9 @@ abstract class BaseActivity : AppCompatActivity(),
                         Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return
         }
-        RxBus.publishToBehaviorSubject(LocationEvent(LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient)))
+        if (LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient) != null) {
+            RxBus.publishToBehaviorSubject(LocationEvent(LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient)))
+        }
     }
 
     override fun onConnectionSuspended(i: Int) {
@@ -148,12 +152,20 @@ abstract class BaseActivity : AppCompatActivity(),
      * This function is used to define subscription
      */
     open fun onBindViewModel() {
+        addDisposables(RxBus.listenPublisher(NetworkErrorEvent::class.java)
+                .observeOnUiThread()
+                .subscribe {
+                    DialogUtils.showErrorNetWorkDialog(supportFragmentManager,
+                            "Vui lòng kiểm tra đường truyền mạng",
+                            null,
+                            getString(android.R.string.ok))
+                })
     }
 
     private fun checkGPS() {
         if (!isGpsOn()) {
             Toast.makeText(this, "GPS is OFF",
-                    Toast.LENGTH_SHORT).show();
+                    Toast.LENGTH_SHORT).show()
             return
         }
         startLocationUpdates()
@@ -164,8 +176,7 @@ abstract class BaseActivity : AppCompatActivity(),
                         Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return
         }
-        LocationServices.FusedLocationApi.requestLocationUpdates(
-                mGoogleApiClient, mLocationRequest, this)
+        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this)
         GoogleApiClient.getAllClients()
     }
 

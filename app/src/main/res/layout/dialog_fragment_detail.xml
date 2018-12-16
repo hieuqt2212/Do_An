@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:layout_marginBottom="40dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="40dp"
+    android:background="@drawable/bg_dialog_info_home">
+
+    <TextView
+        android:id="@+id/tvItemTitle"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_margin="10dp"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="2"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="20dp"
+        android:textStyle="italic|bold"
+        tools:text="asdasdasdasdasdasdasda aasdasdas asd adas s " />
+
+    <LinearLayout
+        android:id="@+id/llButtonBottom"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bg_button_bottom"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvCall"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bg_button_call"
+            android:gravity="center"
+            android:text="CALL"
+            android:textColor="@android:color/holo_red_light"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/holo_red_light" />
+
+        <TextView
+            android:id="@+id/tvMaps"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bg_button_maps"
+            android:gravity="center"
+            android:text="MAPS"
+            android:textColor="@android:color/holo_red_light"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/llButtonBottom"
+        android:layout_below="@+id/tvItemTitle">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/labelImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:text="* Một số hình ảnh nổi bật :"
+                android:textColor="@android:color/holo_red_dark" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerViewItemAvatar"
+                android:layout_width="wrap_content"
+                android:layout_height="150dp"
+                android:layout_below="@+id/labelImage"
+                android:layout_marginTop="5dp"
+                android:padding="5dp" />
+
+            <TextView
+                android:id="@+id/labelContent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/recyclerViewItemAvatar"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="5dp"
+                android:text="* Một số thông tin về địa điểm :"
+                android:textColor="@android:color/holo_red_dark" />
+
+            <TextView
+                android:id="@+id/tvItemContent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/labelContent"
+                android:layout_marginBottom="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:gravity="start"
+                android:textSize="16dp"
+                tools:text="adasdsadsadsadsadsadsadsadasdsadsadasd" />
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>
