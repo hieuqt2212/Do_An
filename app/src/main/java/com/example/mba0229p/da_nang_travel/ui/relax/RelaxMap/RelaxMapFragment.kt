@@ -6,10 +6,12 @@ import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.LinearSnapHelper
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.support.v7.widget.RecyclerView
+import android.view.*
+import android.widget.AbsListView
+import android.widget.FrameLayout
 import android.widget.LinearLayout
+import android.widget.Toast
 import com.example.mba0229p.da_nang_travel.R
 import com.example.mba0229p.da_nang_travel.data.model.Relax
 import com.example.mba0229p.da_nang_travel.data.model.event.LocationEvent
@@ -37,6 +39,42 @@ class RelaxMapFragment : BaseFragment() {
     private var linearSnapHelper: LinearSnapHelper? = null
     private var listRelax = mutableListOf<Relax>()
 
+
+    // Maps change
+    private var isReadyToCalculate = false
+    private var heightFrameLayout = 0
+
+    private val currentLocationButtonLayoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply {
+        gravity = Gravity.BOTTOM or Gravity.RIGHT
+    }
+    private val frameLayoutVisibilityListener: ViewTreeObserver.OnGlobalLayoutListener = ViewTreeObserver.OnGlobalLayoutListener {
+        // Check params of margin
+        if (!isReadyToCalculate) {
+            // Update calculate
+            val itemCount = relaxRecyclerView.layoutManager?.itemCount ?: 0
+            if (itemCount > 0) {
+                val childView = relaxRecyclerView.layoutManager?.findViewByPosition(0)
+                childView?.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+                heightFrameLayout = childView?.let { (it.measuredHeight.plus(it.paddingTop).plus(it.paddingBottom)) } ?: heightFrameLayout
+                isReadyToCalculate = true
+            } else {
+                heightFrameLayout = tvNoData.height
+            }
+            // Update layout
+            if (heightFrameLayout > 0) {
+                val layoutParams = flContent.layoutParams
+                layoutParams.height = heightFrameLayout
+                flContent.requestLayout()
+            }
+            // Update the margin of current location button
+            currentLocationButtonLayoutParams.setMargins(0, 0, 0,
+                    if (slidingLayoutBottom.panelState == SlidingUpPanelLayout.PanelState.EXPANDED) heightFrameLayout + slidingLayoutBottom.currentParallaxOffset
+                    else 0)
+            // Update the margin data into current location button
+            imgMyLocation.layoutParams = currentLocationButtonLayoutParams
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         if (mGoogleMap == null) {
             val supportMapFragment = SupportMapFragment()
@@ -45,7 +83,8 @@ class RelaxMapFragment : BaseFragment() {
                 mGoogleMap = googleMap
                 mGoogleMap?.setOnMapLoadedCallback {
                     mGoogleMap?.mapType = GoogleMap.MAP_TYPE_NORMAL
-                    mGoogleMap?.uiSettings?.isZoomControlsEnabled = true
+                    mGoogleMap?.uiSettings?.isZoomControlsEnabled = false
+                    mGoogleMap?.uiSettings?.isMapToolbarEnabled = false
                 }
             }
         }
@@ -61,10 +100,12 @@ class RelaxMapFragment : BaseFragment() {
         initViews()
         handleListener()
         initAdapter()
+        handleScrollMapItem()
+
     }
 
     private fun initAdapter() {
-        mapAdapter = RelaxMapAdapter(listRelax)
+        mapAdapter = RelaxMapAdapter(listRelax, this::onItemClick)
         relaxRecyclerView.apply {
             adapter = mapAdapter
             // Init snap for list
@@ -99,10 +140,17 @@ class RelaxMapFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
+        isReadyToCalculate = false
+        activity?.window?.decorView?.viewTreeObserver?.addOnGlobalLayoutListener(frameLayoutVisibilityListener)
         context?.let {
             imgArrow.setImageDrawable(ContextCompat.getDrawable(it,
                     if (slidingLayoutBottom.panelState == SlidingUpPanelLayout.PanelState.EXPANDED) R.drawable.ic_map_arrow_down else R.drawable.ic_map_arrow_up))
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        activity?.window?.decorView?.viewTreeObserver?.removeOnGlobalLayoutListener(frameLayoutVisibilityListener)
     }
 
     override fun onBindViewModel() {
@@ -132,6 +180,10 @@ class RelaxMapFragment : BaseFragment() {
                                 }
                             }
                         }
+
+                        //show first
+//                        mGoogleMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(listRelax[0].lat?.let { listRelax[0].lng?.let { it1 -> LatLng(it, it1) } }, 16f))
+                        listRelax[0].lat?.let { listRelax[0].lng?.let { it1 -> LatLng(it, it1) } }?.let { showPosition(it) }
                     })
         }
     }
@@ -179,6 +231,13 @@ class RelaxMapFragment : BaseFragment() {
         // Init bottom navigation
         slidingLayoutBottom.addPanelSlideListener(object : SlidingUpPanelLayout.PanelSlideListener {
             override fun onPanelSlide(panel: View, slideOffset: Float) {
+
+                currentLocationButtonLayoutParams.setMargins(0, 0, 0,
+                        if (relaxRecyclerView.measuredHeight > 0)
+                            ((relaxRecyclerView.measuredHeight + slidingLayoutBottom.currentParallaxOffset) * slideOffset).toInt()
+                        else
+                            ((flContent.measuredHeight + slidingLayoutBottom.currentParallaxOffset) * slideOffset).toInt())
+                imgMyLocation.layoutParams = currentLocationButtonLayoutParams
             }
 
             override fun onPanelStateChanged(panel: View, previousState: SlidingUpPanelLayout.PanelState, newState: SlidingUpPanelLayout.PanelState) {
@@ -215,9 +274,38 @@ class RelaxMapFragment : BaseFragment() {
                 }
             } else {
                 currentLocation?.let { currentLocation ->
-                    mGoogleMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(currentLocation.latitude, currentLocation.longitude), 16f))
+                    showPosition(LatLng(currentLocation.latitude, currentLocation.longitude))
                 }
             }
         }
+    }
+
+    private fun handleScrollMapItem() {
+        relaxRecyclerView?.run {
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
+                    if (newState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) {
+                        val layout = recyclerView.layoutManager as LinearLayoutManager
+                        val position = layout.findFirstCompletelyVisibleItemPosition()
+                        // Get first position scroll
+                        listRelax.let { todoList ->
+                            if (position >= 0 && position < todoList.size) {
+                                listRelax[position].lat?.let { listRelax[position].lng?.let { it1 -> LatLng(it, it1) } }?.let { showPosition(it) }
+                            }
+                        }
+                    }
+                }
+            })
+        }
+    }
+
+    private fun showPosition(latLng: LatLng) {
+        mGoogleMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(latLng.latitude, latLng.longitude), 16f))
+    }
+
+
+    private fun onItemClick(itemRelax: Relax, position: Int) {
+        Toast.makeText(context, "ITEMS = $position ,  $itemRelax", Toast.LENGTH_SHORT).show()
     }
 }
