@@ -34,7 +34,7 @@ class RelaxListAdapter(private val listRelax: MutableList<Relax>) : RecyclerView
             itemView.apply {
                 tvAddress.text = relax.address
                 tvHour.text = if (relax.hour == null) "-- h" else String.format("%d phút", TimeUnit.SECONDS.toMinutes(relax.hour!!.toLong()))
-                tvDistance.text = if (relax.distance == null) "-- Km" else String.format("%02f Km", (relax.distance!!) / 1000)
+                tvDistance.text = if (relax.distance == null) "-- Km" else String.format("%2.2fKm", (relax.distance!!) / 1000)
                 tvNameLocation.text = relax.nameLocation
             }
         }
