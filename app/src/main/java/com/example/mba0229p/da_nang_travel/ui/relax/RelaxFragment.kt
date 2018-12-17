@@ -12,6 +12,7 @@ import com.example.mba0229p.da_nang_travel.data.model.ItemSearch
 import com.example.mba0229p.da_nang_travel.data.model.Relax
 import com.example.mba0229p.da_nang_travel.data.model.event.LocationEvent
 import com.example.mba0229p.da_nang_travel.data.source.Repository
+import com.example.mba0229p.da_nang_travel.data.source.datasource.Constants
 import com.example.mba0229p.da_nang_travel.extension.initView
 import com.example.mba0229p.da_nang_travel.extension.observeOnUiThread
 import com.example.mba0229p.da_nang_travel.ui.base.BaseFragment
@@ -114,34 +115,36 @@ class RelaxFragment : BaseFragment() {
     fun handleUpdateListRelax(): PublishSubject<MutableList<Relax>> = publishUpdateListRelax
 
     private fun updateList() {
-        publishUpdateListRelax.onNext(listRelax)
+//        publishUpdateListRelax.onNext(listRelax)
 
-        // Get Point in direction Google Api
-//        var count = 0
-//        if (!listRelax.isEmpty()) {
-//            if (currentLocation?.latitude != null && currentLocation?.longitude != null) {
-//                listRelax.forEach {
-//                    repository.getDrectionMap("16.005291, 108.207637",
-//                            "16.003797, 108.208343",
-//                            Constants.KEY_GOOGLE_MAP, "true", "driving")
-//                            .observeOnUiThread()
-//                            .doFinally {
-//                                count++
-//                                if (count == listRelax.size) {
-//                                    publishUpdateListRelax.onNext(listRelax)
-//                                }
-//                            }
-//                            .subscribe({ response ->
-//                                Log.d("xxx", "respon=== $response")
-//                                it.points = response.routes.first().overview_polyline.points
-//                                it.distance = response.routes.first().legs.first().distance.value
-//                                it.hour = response.routes.first().legs.first().duration.value
-//                            }, {})
-//                }
-//            } else {
-//                publishUpdateListRelax.onNext(listRelax)
-//            }
-//        }
+//         Get Point in direction Google Api
+        var count = 0
+        if (!listRelax.isEmpty()) {
+            if (currentLocation?.latitude != null && currentLocation?.longitude != null) {
+                listRelax.forEach {
+                    repository.getDrectionMap("${currentLocation?.latitude},${currentLocation?.longitude}",
+                            "${it.lat},${it.lng}",
+                            Constants.KEY_GOOGLE_MAP, "true", "driving")
+                            .observeOnUiThread()
+                            .doFinally {
+                                count++
+                                if (count == listRelax.size) {
+                                    publishUpdateListRelax.onNext(listRelax)
+                                }
+                            }
+                            .subscribe({ response ->
+                                //                                Log.d("xxx", "respon=== $response")
+                                if (response.routes.isNotEmpty()) {
+                                    it.points = response.routes.first().overview_polyline.points
+                                    it.distance = response.routes.first().legs.first().distance.value
+                                    it.hour = response.routes.first().legs.first().duration.value
+                                }
+                            }, {})
+                }
+            } else {
+                publishUpdateListRelax.onNext(listRelax)
+            }
+        }
     }
 
     private fun filter(charText: String) {
