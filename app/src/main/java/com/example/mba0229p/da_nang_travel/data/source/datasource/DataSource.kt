@@ -5,5 +5,5 @@ import io.reactivex.Single
 
 interface DataSource {
 
-    fun getDrectionMap(origin: String, destination: String, key: String, sensor: String, mode: String): Single<DirectionMapResponse>
+    fun getDrectionMap(origin: String, destination: String, key: String): Single<DirectionMapResponse>
 }

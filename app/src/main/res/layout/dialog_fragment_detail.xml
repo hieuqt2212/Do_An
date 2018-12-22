@@ -38,14 +38,16 @@
             android:layout_weight="1"
             android:background="@drawable/bg_button_call"
             android:gravity="center"
-            android:text="CALL"
-            android:textColor="@android:color/holo_red_light"
+            android:text="Liên hệ"
+            android:textColor="@android:color/holo_blue_dark"
             android:textStyle="bold" />
 
         <View
             android:layout_width="1dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:layout_height="match_parent"
-            android:background="@android:color/holo_red_light" />
+            android:background="@android:color/holo_blue_dark" />
 
         <TextView
             android:id="@+id/tvMaps"
@@ -54,8 +56,8 @@
             android:layout_weight="1"
             android:background="@drawable/bg_button_maps"
             android:gravity="center"
-            android:text="MAPS"
-            android:textColor="@android:color/holo_red_light"
+            android:text="Bản đồ"
+            android:textColor="@android:color/holo_blue_dark"
             android:textStyle="bold" />
     </LinearLayout>
 

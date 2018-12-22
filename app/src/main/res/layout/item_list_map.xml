@@ -31,10 +31,12 @@
         android:layout_below="@+id/tvNameLocation"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:ellipsize="end"
         android:gravity="center"
         android:maxLines="2"
         android:textColor="@color/color_app_gray"
         android:textSize="15dp"
-        tools:text="asdasdasdaasdadasdasdasdasdsadsad" />
+        tools:text="asdasdasdaasdadasdasdasdasd
+        ádasdasdasdasdasdsadsad" />
 </RelativeLayout>
