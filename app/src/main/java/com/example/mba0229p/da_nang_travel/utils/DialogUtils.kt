@@ -7,7 +7,7 @@ import android.view.View
 import com.example.mba0229p.da_nang_travel.R
 import com.example.mba0229p.da_nang_travel.data.model.ItemSearch
 import com.example.mba0229p.da_nang_travel.data.model.Relax
-import com.example.mba0229p.da_nang_travel.ui.dialog.DialogListMapDetail
+import com.example.mba0229p.da_nang_travel.ui.dialog.dialogDetail.DialogListMapDetail
 import com.example.mba0229p.da_nang_travel.ui.dialog.dialogGenaral.GeneralDialogFragment
 import com.example.mba0229p.da_nang_travel.ui.dialog.dialogHome.InfoHomeDialog
 import com.example.mba0229p.da_nang_travel.ui.dialog.dialogSearch.SearchDialogFragment
@@ -98,11 +98,15 @@ object DialogUtils {
      * Dialog detail
      */
     fun showDialogDetail(fragmentManager: FragmentManager,
-                         data: Relax) {
+                         data: Relax,
+                         position: Int,
+                         onBtnMapsListener: (Int) -> Unit) {
         if (fragmentManager.findFragmentByTag(DialogListMapDetail::class.java.name) != null) {
             return
         }
         DialogListMapDetail().apply {
+            this.btnMapsClick(onBtnMapsListener)
+            this.position= position
             this.data = data
         }.show(fragmentManager, DialogListMapDetail::class.java.name)
     }

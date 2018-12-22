@@ -9,6 +9,6 @@ class RemoteDataSource : DataSource {
 
     private val apiService = ApiClient.getInstance(null).service
 
-    override fun getDrectionMap(origin: String, destination: String, key: String, sensor: String, mode: String): Single<DirectionMapResponse> =
-            apiService.getDirection(origin, destination, key, sensor, mode)
+    override fun getDrectionMap(origin: String, destination: String, key: String): Single<DirectionMapResponse> =
+            apiService.getDirection(origin, destination, key, "true", "driving")
 }

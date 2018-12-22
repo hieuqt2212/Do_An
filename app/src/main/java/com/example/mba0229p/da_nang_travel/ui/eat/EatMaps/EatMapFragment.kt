@@ -1,4 +1,4 @@
-package com.example.mba0229p.da_nang_travel.ui.relax.RelaxMap
+package com.example.mba0229p.da_nang_travel.ui.eat.EatMaps
 
 import android.graphics.Color
 import android.location.Location
@@ -16,7 +16,8 @@ import com.example.mba0229p.da_nang_travel.data.model.Relax
 import com.example.mba0229p.da_nang_travel.data.model.event.LocationEvent
 import com.example.mba0229p.da_nang_travel.extension.observeOnUiThread
 import com.example.mba0229p.da_nang_travel.ui.base.BaseFragment
-import com.example.mba0229p.da_nang_travel.ui.relax.RelaxFragment
+import com.example.mba0229p.da_nang_travel.ui.eat.EatFragment
+import com.example.mba0229p.da_nang_travel.ui.relax.RelaxMap.ItemMapViewDecoration
 import com.example.mba0229p.da_nang_travel.utils.DialogUtils
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -27,14 +28,14 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import kotlinx.android.synthetic.main.fragment_relax_map.*
 
 
-class RelaxMapFragment : BaseFragment() {
+class EatMapFragment : BaseFragment() {
     private var mGoogleMap: GoogleMap? = null
     private var markerCurrentLocation: Marker? = null
     private var currentLocation: Location? = null
     private var polyline: Polyline? = null
-    private var mapAdapter: RelaxMapAdapter? = null
+    private var mapAdapter: EatMapAdapter? = null
     private var linearSnapHelper: LinearSnapHelper? = null
-    private var listRelax = mutableListOf<Relax>()
+    private var listEat = mutableListOf<Relax>()
 
 
     // Maps change
@@ -102,7 +103,7 @@ class RelaxMapFragment : BaseFragment() {
     }
 
     private fun initAdapter() {
-        mapAdapter = RelaxMapAdapter(listRelax, this::onItemClick)
+        mapAdapter = EatMapAdapter(listEat, this::onItemClick)
         relaxRecyclerView.apply {
             adapter = mapAdapter
             // Init snap for list
@@ -146,16 +147,6 @@ class RelaxMapFragment : BaseFragment() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        isReadyToCalculate = false
-        activity?.window?.decorView?.viewTreeObserver?.addOnGlobalLayoutListener(frameLayoutVisibilityListener)
-        context?.let {
-            imgArrow.setImageDrawable(ContextCompat.getDrawable(it,
-                    if (slidingLayoutBottom.panelState == SlidingUpPanelLayout.PanelState.EXPANDED) R.drawable.ic_map_arrow_down else R.drawable.ic_map_arrow_up))
-        }
-    }
-
     override fun onPause() {
         super.onPause()
         activity?.window?.decorView?.viewTreeObserver?.removeOnGlobalLayoutListener(frameLayoutVisibilityListener)
@@ -163,9 +154,15 @@ class RelaxMapFragment : BaseFragment() {
 
     override fun onBindViewModel() {
         super.onBindViewModel()
-        (parentFragment as RelaxFragment).apply {
+        isReadyToCalculate = false
+        activity?.window?.decorView?.viewTreeObserver?.addOnGlobalLayoutListener(frameLayoutVisibilityListener)
+        context?.let {
+            imgArrow.setImageDrawable(ContextCompat.getDrawable(it,
+                    if (slidingLayoutBottom.panelState == SlidingUpPanelLayout.PanelState.EXPANDED) R.drawable.ic_map_arrow_down else R.drawable.ic_map_arrow_up))
+        }
+        (parentFragment as EatFragment).apply {
             addDisposables(
-                    this@apply.handleUpdateListRelax()
+                    this@apply.handleUpdateListEat()
                             .observeOnUiThread()
                             .subscribe { listRepo ->
                                 mGoogleMap?.clear()
@@ -178,8 +175,8 @@ class RelaxMapFragment : BaseFragment() {
                                 } else {
                                     relaxRecyclerView.visibility = View.VISIBLE
                                     tvNoDataMaps.visibility = View.GONE
-                                    listRelax.clear()
-                                    listRelax.addAll(listRepo)
+                                    listEat.clear()
+                                    listEat.addAll(listRepo)
                                     mapAdapter?.notifyDataSetChanged()
                                     listRepo.forEach {
                                         it.lat?.let { lat ->
@@ -199,7 +196,7 @@ class RelaxMapFragment : BaseFragment() {
                                             }
                                         }
                                     }
-                                    listRelax.first().run {
+                                    listEat.first().run {
                                         lat?.let { lat ->
                                             lng?.let { lng ->
                                                 showPosition(LatLng(lat, lng))
@@ -208,12 +205,12 @@ class RelaxMapFragment : BaseFragment() {
                                     }
                                 }
                             },
-                    this@apply.handleMoveListMap()
+                    this@apply.handleMoveListMapEat()
                             .observeOnUiThread()
                             .subscribe {
                                 moveNewPosition(it)
-                                listRelax[it].lat?.let { it1 -> listRelax[it].lng?.let { it2 -> LatLng(it1, it2) } }?.let { it2 -> showPosition(it2) }
-                                listRelax[it].apply {
+                                listEat[it].lat?.let { it1 -> listEat[it].lng?.let { it2 -> LatLng(it1, it2) } }?.let { it2 -> showPosition(it2) }
+                                listEat[it].apply {
                                     points?.let { point ->
                                         lat?.let { lat ->
                                             lng?.let { lng ->
@@ -318,9 +315,9 @@ class RelaxMapFragment : BaseFragment() {
                         val layout = recyclerView.layoutManager as LinearLayoutManager
                         val position = layout.findFirstCompletelyVisibleItemPosition()
                         // Get first position scroll
-                        listRelax.let { todoList ->
+                        listEat.let { todoList ->
                             if (position >= 0 && position < todoList.size) {
-                                listRelax[position].run {
+                                listEat[position].run {
                                     lat?.let { lat ->
                                         lng?.let { lng ->
                                             showPosition(LatLng(lat, lng))
@@ -346,14 +343,14 @@ class RelaxMapFragment : BaseFragment() {
         mGoogleMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(latLng.latitude, latLng.longitude), 16f))
     }
 
-    private fun onItemClick(itemRelax: Relax, position: Int) {
-        itemRelax.lng?.let { lng ->
-            itemRelax.lat?.let { lat ->
+    private fun onItemClick(itemEat: Relax, position: Int) {
+        itemEat.lng?.let { lng ->
+            itemEat.lat?.let { lat ->
                 showPosition(LatLng(lat, lng))
             }
         }
         fragmentManager?.let { it1 ->
-            DialogUtils.showDialogDetail(it1, itemRelax, position) {}
+            DialogUtils.showDialogDetail(it1, itemEat, position) {}
         }
     }
 }

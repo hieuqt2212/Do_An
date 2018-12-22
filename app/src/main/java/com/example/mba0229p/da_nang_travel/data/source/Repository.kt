@@ -18,8 +18,8 @@ class Repository : DataSource {
     private val remoteDataSource = RemoteDataSource()
 
     // Get direction from Google API
-    override fun getDrectionMap(origin: String, destination: String, key: String, sensor: String, mode: String): Single<DirectionMapResponse> =
-            remoteDataSource.getDrectionMap(origin, destination, key, sensor, mode)
+    override fun getDrectionMap(origin: String, destination: String, key: String): Single<DirectionMapResponse> =
+            remoteDataSource.getDrectionMap(origin, destination, key)
 
     // Get data home info from fire base
     internal fun homeInfoRepo(context: Context): Single<List<InfoHome>> {
@@ -63,7 +63,45 @@ class Repository : DataSource {
     // Get data relax from fire base
     internal fun relaxRepo(context: Context): Single<List<Relax>> {
         return Single.create<List<Relax>> { emit ->
-            val firebaseReference = FirebaseDatabase.getInstance().reference.child("Relax")
+            val firebaseReference = FirebaseDatabase.getInstance().reference.child("relax")
+            val valueEventListener = object : ValueEventListener {
+                override fun onCancelled(p0: DatabaseError) {
+                    emit.onError(p0.toException())
+                }
+
+                override fun onDataChange(p0: DataSnapshot) {
+                    emit.onSuccess(Relax().fromDataSnapshotToList(p0))
+                }
+            }
+            firebaseReference.addListenerForSingleValueEvent(valueEventListener)
+
+            checkNetwork(context, firebaseReference)
+        }
+    }
+
+    // Get data eat from fire base
+    internal fun eatRepo(context: Context): Single<List<Relax>> {
+        return Single.create<List<Relax>> { emit ->
+            val firebaseReference = FirebaseDatabase.getInstance().reference.child("eat")
+            val valueEventListener = object : ValueEventListener {
+                override fun onCancelled(p0: DatabaseError) {
+                    emit.onError(p0.toException())
+                }
+
+                override fun onDataChange(p0: DataSnapshot) {
+                    emit.onSuccess(Relax().fromDataSnapshotToList(p0))
+                }
+            }
+            firebaseReference.addListenerForSingleValueEvent(valueEventListener)
+
+            checkNetwork(context, firebaseReference)
+        }
+    }
+
+    // Get data Guest House from fire base
+    internal fun guestHouseRepo(context: Context): Single<List<Relax>> {
+        return Single.create<List<Relax>> { emit ->
+            val firebaseReference = FirebaseDatabase.getInstance().reference.child("eat")
             val valueEventListener = object : ValueEventListener {
                 override fun onCancelled(p0: DatabaseError) {
                     emit.onError(p0.toException())

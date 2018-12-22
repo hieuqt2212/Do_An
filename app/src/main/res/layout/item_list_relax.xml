@@ -34,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:background="@drawable/bg_radius"
+                android:background="@drawable/bg_radius_list_map"
                 android:padding="5dp"
                 android:textSize="14dp"
                 tools:text="15h" />
@@ -69,8 +69,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:background="@drawable/bg_radius"
-
+                android:background="@drawable/bg_radius_list_map"
                 android:padding="5dp"
                 android:textSize="14dp"
                 tools:text="12km" />

@@ -1,6 +1,5 @@
 package com.example.mba0229p.da_nang_travel.data.model
 
-import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.Exclude
 import com.google.firebase.database.PropertyName
@@ -27,6 +26,9 @@ data class Relax(
         @set:PropertyName("phone")
         @get:PropertyName("phone")
         var phone: String? = null,
+        @set:PropertyName("image")
+        @get:PropertyName("image")
+        var image: MutableList<String>? = null,
         var points: String? = null,
         var distance: Double? = null,
         var hour: Double? = null

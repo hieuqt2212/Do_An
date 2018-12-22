@@ -11,7 +11,7 @@ interface ApiService {
     fun getDirection(@Query("origin") origin: String,
                      @Query("destination") destination: String,
                      @Query("key") key: String,
-                     @Query("sensor") sensor: String = "false",
-                     @Query("mode") mode: String = "driving"): Single<DirectionMapResponse>
+                     @Query("sensor") sensor: String,
+                     @Query("mode") mode: String): Single<DirectionMapResponse>
 
 }

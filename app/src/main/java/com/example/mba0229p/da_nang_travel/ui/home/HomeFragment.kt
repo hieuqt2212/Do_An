@@ -23,12 +23,6 @@ class HomeFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // Enable swiping view pager header
-        viewPagerContainHome.run {
-            adapter = HomePagerAdapter(childFragmentManager)
-            setEnabledSwiping(false)
-            setOnTouchListener { _, _ -> true }
-        }
 
         // Enable swiping view pager header
         viewPagerHeaderHome.run {
@@ -53,13 +47,5 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun initListener() {
-        rbInfo.setOnClickListener {
-            rbInfo.isChecked = true
-            viewPagerContainHome.setCurrentItem(0, true)
-        }
-        rbEvent.setOnClickListener {
-            rbEvent.isChecked = true
-            viewPagerContainHome.setCurrentItem(1, true)
-        }
     }
 }

@@ -8,9 +8,8 @@ import com.example.mba0229p.da_nang_travel.data.model.Relax
 import com.example.mba0229p.da_nang_travel.extension.initView
 import kotlinx.android.synthetic.main.item_list_map.view.*
 
-class RelaxMapAdapter(private val listRelax: MutableList<Relax>) : RecyclerView.Adapter<RelaxMapAdapter.RelaxMapViewHolder>() {
+class RelaxMapAdapter(private val listRelax: MutableList<Relax>, private val onItemClick: (Relax, Int) -> Unit) : RecyclerView.Adapter<RelaxMapAdapter.RelaxMapViewHolder>() {
 
-    private var listenerMap: (Int) -> Unit = {}
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RelaxMapViewHolder =
             RelaxMapViewHolder(parent.initView(R.layout.item_list_map))
 
@@ -23,7 +22,7 @@ class RelaxMapAdapter(private val listRelax: MutableList<Relax>) : RecyclerView.
     inner class RelaxMapViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         init {
             itemView.setOnClickListener {
-                listenerMap(adapterPosition)
+                onItemClick(listRelax[adapterPosition], adapterPosition)
             }
         }
 

@@ -1,37 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorTheme_app">
 
-    <android.support.design.widget.CollapsingToolbarLayout
-        android:id="@+id/viewToolbar"
+    <com.example.mba0229p.da_nang_travel.widgets.CustomViewPager
+        android:id="@+id/viewPagerHeaderHome"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:fitsSystemWindows="true"
-        app:contentScrim="@android:color/holo_blue_bright"
-        app:expandedTitleMarginStart="20dp"
-        app:expandedTitleTextAppearance="@style/TextAppearance.AppCompat.Subhead"
-        app:layout_scrollFlags="scroll|exitUntilCollapsed">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.example.mba0229p.da_nang_travel.widgets.CustomViewPager
-                android:id="@+id/viewPagerHeaderHome"
-                android:layout_width="match_parent"
-                android:layout_height="250dp" />
-
-        </RelativeLayout>
-    </android.support.design.widget.CollapsingToolbarLayout>
+        android:layout_height="150dp" />
 
     <TextView
         android:id="@+id/labelHome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/viewToolbar"
+        android:layout_below="@+id/viewPagerHeaderHome"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
@@ -39,38 +21,65 @@
         android:textSize="20dp"
         android:textStyle="bold|italic" />
 
-    <RadioGroup
-        android:id="@+id/radioButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/labelHome"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
-
-        <RadioButton
-            android:id="@+id/rbInfo"
-            style="@style/RadioButtonTabCustom"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_radio_button_left"
-            android:checked="true"
-            android:text="Thông tin" />
-
-        <RadioButton
-            android:id="@+id/rbEvent"
-            style="@style/RadioButtonTabCustom"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_radio_button_right"
-            android:checked="false"
-            android:text="Sự kiện" />
-    </RadioGroup>
-
-    <com.example.mba0229p.da_nang_travel.widgets.CustomViewPager
-        android:id="@+id/viewPagerContainHome"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/radioButton"
-        android:layout_marginTop="10dp" />
+        android:layout_below="@id/labelHome">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="10dp"
+                android:text="* Giới thiệu du lịch Đà Nẵng."
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="16dp"
+                android:textStyle="italic" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="5dp"
+                android:text="   Nói đến Đà Nẵng là du khách có thể hình dung ngay rằng đó là một thành phố tuyệt đẹp bên sông Hàn, bên bờ biển Đông với những nét quyến rũ chưa từng có ở các đô thị biển khác…  \n   Biển cũng là nguồn cảm hứng du lịch vô tận mà Đà Nẵng có được. \n   Ngoài những bãi tắm sạch, đẹp trải dài thì cảng Đà Nẵng là một trong những cảng ăn khách nhất hiện nay ở Việt Nam."
+                android:textColor="@android:color/black"
+                android:textSize="14dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="15dp"
+                android:text="* Một số hình ảnh về Tp. Đà Nẵng."
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="16dp"
+                android:textStyle="italic" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerViewImageHome"
+                android:layout_width="match_parent"
+                android:layout_height="100dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="15dp"
+                android:text="* Một số sự kiện nổi bật tại Tp. Đà Nẵng."
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="16dp"
+                android:textStyle="italic" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerViewEvent"
+                android:layout_width="match_parent"
+                android:layout_height="100dp" />
+        </LinearLayout>
+    </ScrollView>
 </RelativeLayout>

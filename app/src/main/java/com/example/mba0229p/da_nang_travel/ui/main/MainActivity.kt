@@ -26,7 +26,7 @@ class MainActivity : BaseActivity() {
                 R.id.btnEat -> viewPagerContain.setCurrentItem(2, false)
                 else -> viewPagerContain.setCurrentItem(3, false)
             }
-            false
+            return@setOnNavigationItemSelectedListener true
         }
     }
 }
