@@ -7,20 +7,20 @@
     android:layout_marginEnd="10dp"
     android:layout_marginStart="10dp"
     android:layout_marginTop="30dp"
-    android:background="@drawable/bg_radius">
+    android:background="@drawable/bg_search_radius">
 
     <RelativeLayout
         android:id="@+id/rlSearch"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@drawable/bg_radius">
+        android:background="@drawable/bg_search_radius">
 
         <ImageView
             android:id="@+id/imgBackSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="8dp"
             android:src="@drawable/ic_arrow_back" />
 
         <ImageView
@@ -40,9 +40,16 @@
             android:layout_marginStart="5dp"
             android:layout_toEndOf="@+id/imgBackSearch"
             android:layout_toStartOf="@+id/imgCloseSearch"
+            android:background="@null"
             android:gravity="center_vertical"
             android:hint="Vui lòng nhập điểm đến"
             android:singleLine="true" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorPrimary" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -50,7 +57,7 @@
         android:layout_height="match_parent"
         android:layout_below="@id/rlSearch"
         android:layout_marginTop="5dp"
-        android:background="@drawable/bg_radius">
+        android:background="@drawable/bg_search_radius">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerViewSearch"
