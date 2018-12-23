@@ -16,7 +16,13 @@ data class EventHome(
         var image: List<String>? = null,
         @set:PropertyName("content")
         @get:PropertyName("content")
-        var content: String? = null
+        var content: String? = null,
+        @set:PropertyName("month")
+        @get:PropertyName("month")
+        var month: Int? = null,
+        @set:PropertyName("day")
+        @get:PropertyName("day")
+        var day: Int? = null
 ) : Serializable {
 
     private fun fromDataSnapshot(dataSnapshot: DataSnapshot): EventHome? {

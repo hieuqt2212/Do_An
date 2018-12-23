@@ -101,7 +101,7 @@ class Repository : DataSource {
     // Get data Guest House from fire base
     internal fun guestHouseRepo(context: Context): Single<List<Relax>> {
         return Single.create<List<Relax>> { emit ->
-            val firebaseReference = FirebaseDatabase.getInstance().reference.child("eat")
+            val firebaseReference = FirebaseDatabase.getInstance().reference.child("guestHouse")
             val valueEventListener = object : ValueEventListener {
                 override fun onCancelled(p0: DatabaseError) {
                     emit.onError(p0.toException())

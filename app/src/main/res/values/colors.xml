@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimary">#ee1c2e</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#ffff</color>
 
@@ -9,7 +9,8 @@
     <color name="colorDialogBackGroundTransparent">#00ff0000</color>
 
     <color name="colorTheme_app">#f1ee3e</color>
-    <color name="color_app_gray">#d6d6d6</color>
+    <color name="color_app_gray">#f2f2f2</color>
+    <color name="color_app_button">#cecece</color>
     <color name="color_background_list">#e1e1e1</color>
     <color name="dialogBackGroundTransparent">#00ff0000</color>
 </resources>
