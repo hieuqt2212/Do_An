@@ -3,24 +3,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="80dp"
+    android:layout_marginBottom="10dp"
+    android:layout_marginEnd="20dp"
     android:layout_marginStart="20dp"
     android:layout_marginTop="5dp"
-    android:layout_marginEnd="20dp"
-    android:layout_marginBottom="10dp"
     android:background="@drawable/bg_item_list_map">
 
     <TextView
         android:id="@+id/tvNameLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
-        android:layout_marginEnd="10dp"
         android:ellipsize="end"
         android:gravity="center"
         android:singleLine="true"
-        android:textColor="@android:color/white"
-        android:textSize="18dp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16dp"
         android:textStyle="bold"
         tools:text="hiashdiasddsa" />
 
@@ -29,13 +29,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/tvNameLocation"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
         android:ellipsize="end"
         android:gravity="center"
         android:maxLines="2"
-        android:textColor="@color/color_app_gray"
         android:textSize="15dp"
         tools:text="asdasdasdaasdadasdasdasdasd
         ádasdasdasdasdasdsadsad" />

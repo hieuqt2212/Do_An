@@ -3,6 +3,7 @@ package com.example.mba0229p.da_nang_travel.ui.relax
 import android.location.Location
 import android.os.Bundle
 import android.support.design.widget.TabLayout
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,6 +49,7 @@ class RelaxFragment : BaseFragment() {
                     .subscribe({
                         listRelax.clear()
                         listRelax.addAll(it)
+                        publishUpdateListRelax.onNext(listRelax)
                         listRelaxAll.clear()
                         listRelaxAll.addAll(it)
                         updateList()
@@ -125,14 +127,16 @@ class RelaxFragment : BaseFragment() {
             }
             fragmentManager?.let {
                 DialogUtils.showDialogSearch(it, list) { position ->
-                    viewpagerRelax.setCurrentItem(1, true)
-                    publishMoveListMap.onNext(position)
+                    DialogUtils.showDialogDetail(it, listRelax[position], position) {
+                        RxBus.publishToPublishSubject(BtnMapsRelaxEvent(position))
+                    }
                 }
             }
         }
     }
 
     override fun getCurrentLocation(locationEvent: LocationEvent) {
+        Log.d("xxx", "ddd")
         currentLocation = locationEvent.location
         updateList()
     }

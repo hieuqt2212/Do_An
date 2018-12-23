@@ -47,10 +47,13 @@ class EatFragment : BaseFragment() {
                     .subscribe({
                         listEat.clear()
                         listEat.addAll(it)
+                        publishUpdateListEat.onNext(listEat)
                         listEatAll.clear()
                         listEatAll.addAll(it)
                         updateList()
-                    }, {})
+                    }, {
+                        publishUpdateListEat.onNext(listEat)
+                    })
         }
         return container?.initView(R.layout.fragment_relax)
     }
@@ -124,8 +127,9 @@ class EatFragment : BaseFragment() {
             }
             fragmentManager?.let {
                 DialogUtils.showDialogSearch(it, list) { position ->
-                    viewpagerRelax.setCurrentItem(1, true)
-                    publishMoveListMapEat.onNext(position)
+                    DialogUtils.showDialogDetail(it, listEat[position], position) {
+                        RxBus.publishToPublishSubject(BtnMapsEatEvent(position))
+                    }
                 }
             }
         }

@@ -1,10 +1,13 @@
 package com.example.mba0229p.da_nang_travel.ui.home
 
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.mba0229p.da_nang_travel.R
+import com.example.mba0229p.da_nang_travel.data.model.EventHome
+import com.example.mba0229p.da_nang_travel.data.source.Repository
 import com.example.mba0229p.da_nang_travel.extension.initView
 import com.example.mba0229p.da_nang_travel.extension.observeOnUiThread
 import com.example.mba0229p.da_nang_travel.ui.base.BaseFragment
@@ -15,6 +18,8 @@ import java.util.concurrent.TimeUnit
 
 class HomeFragment : BaseFragment() {
     private var positionItemHeaderHome = 0
+    private var listEventHome = mutableListOf<EventHome>()
+    private var adapterEvent: EventHomeAdapter? = null
     private val listImageHeader = mutableListOf(R.drawable.bg_banner_app, R.drawable.bg_banner_app_2, R.drawable.bg_banner_app_3)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -42,8 +47,30 @@ class HomeFragment : BaseFragment() {
                         }
                     }
                 }
-
+        initAdapter()
+        initView()
         initListener()
+    }
+
+    private fun initAdapter() {
+        adapterEvent = EventHomeAdapter(listEventHome)
+        recyclerViewEvent.run {
+            adapter = adapterEvent
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        }
+    }
+
+    private fun initView() {
+        context?.let { context ->
+            Repository().homeEventRepo(context)
+                    .doOnSubscribe { dialog?.show() }
+                    .doFinally { dialog?.dismiss() }
+                    .subscribe({
+                        listEventHome.clear()
+                        listEventHome.addAll(it)
+                        adapterEvent?.notifyDataSetChanged()
+                    }, {})
+        }
     }
 
     private fun initListener() {

@@ -1,9 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="230dp"
+    android:layout_margin="10dp">
 
-    <ImageView
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="" />
-</RelativeLayout>
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imgAvatarEvent"
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            tools:src="@drawable/ic_splash" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_below="@id/imgAvatarEvent">
+
+            <LinearLayout
+                android:id="@+id/llMonthDay"
+                android:layout_width="35dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvDateEvent"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="10"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="2dp"
+                    android:background="@android:color/darker_gray" />
+
+                <TextView
+                    android:id="@+id/tvDayEvent"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="29"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="12dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvNameEvent"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_toEndOf="@+id/llMonthDay"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="2"
+                android:text="asdksahdjksahdasjkd"
+                android:textColor="@android:color/black"
+                android:textSize="16dp" />
+        </RelativeLayout>
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

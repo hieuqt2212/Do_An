@@ -3,21 +3,21 @@
 
     <item
         android:id="@+id/btnHome"
-        android:icon="@drawable/ic_storage_indigo_a400_18dp"
+        android:icon="@drawable/ic_home"
         android:title="Trang chủ" />
 
     <item
         android:id="@+id/btnRelax"
-        android:icon="@drawable/ic_storage_indigo_a400_18dp"
-        android:title="Vui chơi" />
+        android:icon="@drawable/ic_relax"
+        android:title="Giải trí" />
 
     <item
         android:id="@+id/btnEat"
-        android:icon="@drawable/ic_storage_indigo_a400_18dp"
+        android:icon="@drawable/ic_eat"
         android:title="Ăn uống" />
 
     <item
         android:id="@+id/btnHotel"
-        android:icon="@drawable/ic_storage_indigo_a400_18dp"
+        android:icon="@drawable/ic_guest_house"
         android:title="Nhà nghỉ" />
 </menu>

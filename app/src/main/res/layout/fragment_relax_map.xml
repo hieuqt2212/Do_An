@@ -70,7 +70,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
-                    android:background="@color/color_background_list"
+                    android:background="@android:color/white"
                     android:scrollbars="none" />
 
                 <TextView
@@ -78,7 +78,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@color/color_background_list"
+                    android:background="@android:color/white"
                     android:gravity="center"
                     android:padding="27dp"
                     android:text="No Data."
