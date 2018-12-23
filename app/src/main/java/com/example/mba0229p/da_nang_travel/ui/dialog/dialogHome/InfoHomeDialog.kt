@@ -21,6 +21,8 @@ class InfoHomeDialog : DialogFragment() {
     internal var listImage = mutableListOf<String>()
     internal var title: String? = null
     internal var content: String? = null
+    internal var date: String? = null
+    internal var day: String? = null
     private var imageAdapter: DialogHomeAdapter? = null
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -32,6 +34,8 @@ class InfoHomeDialog : DialogFragment() {
             setContentView(R.layout.dialog_fragment_home)
 
             val tvItemTitle = findViewById<TextView>(R.id.tvItemTitle)
+            val tvDate = findViewById<TextView>(R.id.tvDate)
+            val tvDay = findViewById<TextView>(R.id.tvDay)
             val tvItemContent = findViewById<TextView>(R.id.tvItemContent)
             val recyclerViewItemAvatar = findViewById<RecyclerView>(R.id.recyclerViewItemAvatar)
             val btnItemCancel = findViewById<Button>(R.id.btnItemCancel)
@@ -41,6 +45,8 @@ class InfoHomeDialog : DialogFragment() {
                 adapter = imageAdapter
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             }
+            tvDate.text = date
+            tvDay.text = day
             tvItemTitle.text = title
             tvItemContent.text = content
             btnItemCancel.setOnClickListener {

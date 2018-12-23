@@ -59,7 +59,7 @@
             android:ellipsize="end"
             android:gravity="center"
             android:maxLines="2"
-            android:textColor="@android:color/holo_blue_dark"
+            android:textColor="@color/colorPrimary"
             android:textSize="20dp"
             android:textStyle="italic|bold"
             tools:text="asdasdasdasdasdasdasda aasdasdas asd adas s " />
@@ -67,14 +67,16 @@
 
     <Button
         android:id="@+id/btnItemCancel"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="10dp"
         android:padding="5dp"
         android:text="Cancel"
-        android:textColor="@android:color/holo_red_light" />
+        android:textColor="@android:color/holo_red_light"
+        android:textStyle="bold" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -92,7 +94,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:text="* Một số hình ảnh nổi bật :"
-                android:textColor="@android:color/holo_red_dark"
+                android:textColor="@android:color/holo_blue_dark"
                 android:textStyle="italic" />
 
             <android.support.v7.widget.RecyclerView
@@ -111,7 +113,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="5dp"
                 android:text="* Một số thông tin về địa điểm :"
-                android:textColor="@android:color/holo_red_dark"
+                android:textColor="@android:color/holo_blue_dark"
                 android:textStyle="italic" />
 
             <TextView

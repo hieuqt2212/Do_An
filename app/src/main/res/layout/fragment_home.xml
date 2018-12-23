@@ -1,24 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_theme_app">
 
     <com.example.mba0229p.da_nang_travel.widgets.CustomViewPager
         android:id="@+id/viewPagerHeaderHome"
         android:layout_width="match_parent"
         android:layout_height="150dp" />
-
-    <!--<TextView-->
-    <!--android:id="@+id/labelHome"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_below="@+id/viewPagerHeaderHome"-->
-    <!--android:layout_centerHorizontal="true"-->
-    <!--android:layout_gravity="center"-->
-    <!--android:layout_marginTop="10dp"-->
-    <!--android:text="Trang chủ"-->
-    <!--android:textSize="20dp"-->
-    <!--android:textStyle="bold|italic" />-->
 
     <ScrollView
         android:layout_width="match_parent"
@@ -63,7 +52,7 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerViewImageHome"
                 android:layout_width="match_parent"
-                android:layout_height="100dp" />
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -78,16 +67,8 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerViewEvent"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="20dp"
-                android:text="SVTH : Cáp Xuân Hiếu"
-                android:textColor="@color/colorPrimary"
-                android:textSize="16dp" />
+                android:layout_marginBottom="20dp"/>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

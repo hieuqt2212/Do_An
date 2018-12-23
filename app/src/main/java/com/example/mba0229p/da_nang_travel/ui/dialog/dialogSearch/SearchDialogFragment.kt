@@ -38,7 +38,6 @@ class SearchDialogFragment : DialogFragment() {
 
             val imgCloseSearch = findViewById<ImageView>(R.id.imgCloseSearch)
             val recyclerViewSearch = findViewById<RecyclerView>(R.id.recyclerViewSearch)
-            val imgBackSearch = findViewById<ImageView>(R.id.imgBackSearch)
             val edtSearchFill = findViewById<EditText>(R.id.edtSearchFill)
 
             adapterSearch = SearchAdapter(list).apply {
@@ -54,10 +53,6 @@ class SearchDialogFragment : DialogFragment() {
 
             imgCloseSearch.setOnClickListener {
                 edtSearchFill.setText("")
-            }
-
-            imgBackSearch.setOnClickListener {
-                dismiss()
             }
 
             edtSearchFill.addTextChangedListener(object : TextWatcher {

@@ -21,26 +21,6 @@ class Repository : DataSource {
     override fun getDrectionMap(origin: String, destination: String, key: String): Single<DirectionMapResponse> =
             remoteDataSource.getDrectionMap(origin, destination, key)
 
-    // Get data home info from fire base
-    internal fun homeInfoRepo(context: Context): Single<List<InfoHome>> {
-        return Single.create<List<InfoHome>> { emit ->
-            val firebaseReference = FirebaseDatabase.getInstance().reference.child("infor")
-            val valueEventListener = object : ValueEventListener {
-                override fun onCancelled(p0: DatabaseError) {
-                    emit.onError(p0.toException())
-
-                }
-
-                override fun onDataChange(p0: DataSnapshot) {
-                    emit.onSuccess(InfoHome().fromDataSnapshotToList(p0))
-                }
-            }
-            firebaseReference.addListenerForSingleValueEvent(valueEventListener)
-
-            checkNetwork(context, firebaseReference)
-        }
-    }
-
     // Get data home event from fire base
     internal fun homeEventRepo(context: Context): Single<List<EventHome>> {
         return Single.create<List<EventHome>> { emit ->

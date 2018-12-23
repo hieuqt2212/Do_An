@@ -1,4 +1,4 @@
-package com.example.mba0229p.da_nang_travel.ui.main.header_home
+package com.example.mba0229p.da_nang_travel.ui.home.header_home
 
 import android.content.Context
 import android.support.v4.view.PagerAdapter
