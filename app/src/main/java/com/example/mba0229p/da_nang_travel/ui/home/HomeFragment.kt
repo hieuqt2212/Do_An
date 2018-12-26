@@ -14,10 +14,12 @@ import com.example.mba0229p.da_nang_travel.ui.base.BaseFragment
 import com.example.mba0229p.da_nang_travel.ui.home.header_home.HeaderAdapter
 import com.example.mba0229p.da_nang_travel.utils.DialogUtils
 import io.reactivex.Observable
+import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_home.*
 import java.util.concurrent.TimeUnit
 
 class HomeFragment : BaseFragment() {
+    private var disposable: Disposable? = null
     private var positionItemHeaderHome = 0
     private var adapterImage: ImageHomeAdapter? = null
     private var listEventHome = mutableListOf<EventHome>()
@@ -73,7 +75,14 @@ class HomeFragment : BaseFragment() {
         context?.let { context ->
             Repository().homeEventRepo(context)
                     .doOnSubscribe { dialog?.show() }
-                    .doFinally { dialog?.dismiss() }
+                    .doFinally {
+                        disposable = Observable
+                                .interval(2, TimeUnit.SECONDS)
+                                .subscribe {
+                                    dialog?.dismiss()
+                                    disposable?.dispose()
+                                }
+                    }
                     .subscribe({
                         listEventHome.clear()
                         listEventHome.addAll(it)

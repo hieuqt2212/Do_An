@@ -9,6 +9,5 @@
         android:id="@+id/imgDialog"
         android:layout_width="wrap_content"
         android:layout_height="140dp"
-        android:contentDescription="@null"
-        android:scaleType="centerCrop" />
+        android:contentDescription="@null" />
 </RelativeLayout>
