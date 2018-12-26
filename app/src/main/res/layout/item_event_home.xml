@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="260dp"
     android:layout_height="230dp"
-    android:layout_margin="10dp">
+    android:layout_margin="5dp">
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -11,8 +11,9 @@
 
         <ImageView
             android:id="@+id/imgAvatarEvent"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="150dp"
+            android:scaleType="centerCrop"
             tools:src="@drawable/ic_splash" />
 
         <RelativeLayout
@@ -24,6 +25,8 @@
                 android:id="@+id/llMonthDay"
                 android:layout_width="35dp"
                 android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:background="@drawable/bg_radius_event_home"
                 android:orientation="vertical">
 
                 <TextView
@@ -34,7 +37,7 @@
                     android:gravity="center"
                     android:text="10"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="14dp"
+                    android:textSize="16dp"
                     android:textStyle="bold" />
 
                 <View
@@ -53,14 +56,16 @@
                     android:gravity="center"
                     android:text="29"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="12dp"
+                    android:textSize="14dp"
                     android:textStyle="bold" />
             </LinearLayout>
 
             <TextView
                 android:id="@+id/tvNameEvent"
-                android:layout_width="100dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
                 android:layout_toEndOf="@+id/llMonthDay"
                 android:ellipsize="end"
                 android:gravity="center"

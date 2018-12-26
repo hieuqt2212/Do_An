@@ -23,6 +23,8 @@ object DialogUtils {
 
     fun showDialogHomeInfo(fragmentManager: FragmentManager,
                            title: String? = null,
+                           month: String? = null,
+                           day: String? = null,
                            listImage: MutableList<String>? = null,
                            content: String? = null) {
         if (fragmentManager.findFragmentByTag(InfoHomeDialog::class.java.name) != null) {
@@ -32,6 +34,8 @@ object DialogUtils {
             this.title = title
             listImage?.let { this.listImage = it }
             this.content = content
+            this.date = month
+            this.day = day
         }.show(fragmentManager, InfoHomeDialog::class.java.name)
     }
 
@@ -106,7 +110,7 @@ object DialogUtils {
         }
         DialogListMapDetail().apply {
             this.btnMapsClick(onBtnMapsListener)
-            this.position= position
+            this.position = position
             this.data = data
         }.show(fragmentManager, DialogListMapDetail::class.java.name)
     }

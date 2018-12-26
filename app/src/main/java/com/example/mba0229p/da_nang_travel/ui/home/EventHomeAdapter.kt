@@ -10,6 +10,8 @@ import com.example.mba0229p.da_nang_travel.extension.initView
 import kotlinx.android.synthetic.main.item_event_home.view.*
 
 class EventHomeAdapter(var listEvent: MutableList<EventHome>) : RecyclerView.Adapter<EventHomeAdapter.EventHomeVH>() {
+
+    internal var itemEventListener: (Int) -> Unit = {}
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventHomeVH = EventHomeVH(parent.initView(R.layout.item_event_home))
 
     override fun getItemCount(): Int = listEvent.size
@@ -19,6 +21,13 @@ class EventHomeAdapter(var listEvent: MutableList<EventHome>) : RecyclerView.Ada
     }
 
     inner class EventHomeVH(view: View) : RecyclerView.ViewHolder(view) {
+
+        init {
+            itemView?.setOnClickListener {
+                itemEventListener(adapterPosition)
+            }
+        }
+
         fun onBind(eventHome: EventHome) {
             itemView?.run {
                 tvDateEvent.text = eventHome.month.toString()
