@@ -137,6 +137,7 @@ class RelaxMapFragment : BaseFragment() {
                     markerCurrentLocation = it.addMarker(
                             MarkerOptions()
                                     .position(LatLng(lat, lng))
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_current_location))
                                     .title("Vị trí của bạn")
                     ).apply {
                         this?.showInfoWindow()
@@ -212,11 +213,11 @@ class RelaxMapFragment : BaseFragment() {
                             .observeOnUiThread()
                             .subscribe {
                                 moveNewPosition(it)
-                                listRelax[it].lat?.let { it1 -> listRelax[it].lng?.let { it2 -> LatLng(it1, it2) } }?.let { it2 -> showPosition(it2) }
                                 listRelax[it].apply {
                                     points?.let { point ->
                                         lat?.let { lat ->
                                             lng?.let { lng ->
+                                                showPosition(LatLng(lat, lng))
                                                 drawPolyline(point, LatLng(lat, lng))
                                             }
                                         }
@@ -249,7 +250,7 @@ class RelaxMapFragment : BaseFragment() {
         val polylineOptions = PolylineOptions()
         polylineOptions.addAll(listLatLng)
         polylineOptions.width(10.0f)
-        polylineOptions.color(Color.BLUE)
+        polylineOptions.color(Color.RED)
         polylineOptions.geodesic(false)
         polyline = mGoogleMap?.addPolyline(polylineOptions)
     }

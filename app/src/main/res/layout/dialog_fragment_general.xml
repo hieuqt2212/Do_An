@@ -37,14 +37,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvDialogMessage"
-        android:layout_marginTop="15dp">
+        android:layout_marginTop="15dp"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp"
+        android:background="@drawable/bg_btn_dialog_left">
 
         <Button
             android:id="@+id/btnDialogLeft"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/bg_btn_dialog_left"
+            android:background="@android:color/transparent"
             android:textAllCaps="false"
             android:textColor="#ee1c2e"
             android:textStyle="bold"
@@ -61,7 +64,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/bg_btn_dialog_right"
+            android:background="@android:color/transparent"
             android:textAllCaps="false"
             android:textColor="#ee1c2e"
             android:textStyle="bold"

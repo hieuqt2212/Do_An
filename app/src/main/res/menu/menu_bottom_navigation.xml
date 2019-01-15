@@ -1,22 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:checked="true"
+        app:showAsAction="ifRoom"
         android:id="@+id/btnHome"
         android:icon="@drawable/ic_home"
         android:title="Trang chủ" />
 
     <item
+        android:checked="false"
+        app:showAsAction="ifRoom"
         android:id="@+id/btnRelax"
         android:icon="@drawable/ic_relax"
         android:title="Giải trí" />
 
     <item
         android:id="@+id/btnEat"
+        android:checked="false"
+        app:showAsAction="ifRoom"
         android:icon="@drawable/ic_eat"
         android:title="Ăn uống" />
 
     <item
+        android:checked="false"
+        app:showAsAction="ifRoom"
         android:id="@+id/btnHotel"
         android:icon="@drawable/ic_guest_house"
         android:title="Nhà nghỉ" />

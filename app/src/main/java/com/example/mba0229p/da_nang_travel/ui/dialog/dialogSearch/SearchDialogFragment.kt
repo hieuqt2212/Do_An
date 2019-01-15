@@ -9,6 +9,8 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.DisplayMetrics
+import android.view.View
 import android.view.Window
 import android.widget.EditText
 import android.widget.ImageView
@@ -57,6 +59,7 @@ class SearchDialogFragment : DialogFragment() {
 
             edtSearchFill.addTextChangedListener(object : TextWatcher {
                 override fun afterTextChanged(p0: Editable?) {
+                    imgCloseSearch.visibility = if (edtSearchFill.text.isNullOrEmpty()) View.INVISIBLE else View.VISIBLE
                     adapterSearch?.filter(edtSearchFill.text.toString().toLowerCase(Locale.getDefault()))
                 }
 
@@ -80,6 +83,18 @@ class SearchDialogFragment : DialogFragment() {
         super.onDismiss(dialog)
         if (isShowing) {
             isShowing = false
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val displayMetrics = DisplayMetrics()
+        dialog.window.let {
+            it.windowManager.defaultDisplay.getMetrics(displayMetrics)
+            it.attributes = dialog.window.attributes.apply {
+                width = displayMetrics.widthPixels - displayMetrics.widthPixels / 5
+                height = displayMetrics.heightPixels - displayMetrics.heightPixels / 5
+            }
         }
     }
 

@@ -7,8 +7,8 @@ import android.support.v4.app.DialogFragment
 import android.support.v4.app.FragmentManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.DisplayMetrics
 import android.view.Window
-import android.widget.Button
 import android.widget.TextView
 import com.example.mba0229p.da_nang_travel.R
 
@@ -38,7 +38,6 @@ class InfoHomeDialog : DialogFragment() {
             val tvDay = findViewById<TextView>(R.id.tvDay)
             val tvItemContent = findViewById<TextView>(R.id.tvItemContent)
             val recyclerViewItemAvatar = findViewById<RecyclerView>(R.id.recyclerViewItemAvatar)
-            val btnItemCancel = findViewById<Button>(R.id.btnItemCancel)
 
             imageAdapter = DialogHomeAdapter(listImage)
             recyclerViewItemAvatar.run {
@@ -49,9 +48,6 @@ class InfoHomeDialog : DialogFragment() {
             tvDay.text = day
             tvItemTitle.text = title
             tvItemContent.text = content
-            btnItemCancel.setOnClickListener {
-                dismiss()
-            }
         }
     }
 
@@ -59,6 +55,18 @@ class InfoHomeDialog : DialogFragment() {
         super.onDismiss(dialog)
         if (isShowing) {
             isShowing = false
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val displayMetrics = DisplayMetrics()
+        dialog.window.let {
+            it.windowManager.defaultDisplay.getMetrics(displayMetrics)
+            it.attributes = dialog.window.attributes.apply {
+                width = displayMetrics.widthPixels - displayMetrics.widthPixels / 5
+                height = displayMetrics.heightPixels - displayMetrics.heightPixels / 6
+            }
         }
     }
 

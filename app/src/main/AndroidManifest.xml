@@ -16,6 +16,7 @@
 
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
+    <uses-permission android:name="android.permission-group.PHONE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -26,7 +27,7 @@
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyB-mCtkVsfmTlonVi-hhrxIO0tmpwa-zPI" />
+            android:value="AIzaSyAhHpbOBBLHh71XrDr0m8ULt8F7Rej_DwQ" />
 
         <activity android:name=".ui.splash.SplashActivity">
             <intent-filter>

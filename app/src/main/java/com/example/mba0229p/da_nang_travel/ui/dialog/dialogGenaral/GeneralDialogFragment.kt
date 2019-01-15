@@ -82,10 +82,6 @@ class GeneralDialogFragment : DialogFragment() {
         btnDialogLeft.visibility = if (leftButtonText.isNullOrEmpty()) View.GONE else View.VISIBLE
         btnDialogLeft.text = leftButtonText.toString()
         btnDialogRight.visibility = if (rightButtonText.isNullOrEmpty()) View.GONE else View.VISIBLE
-        if (leftButtonText.isNullOrEmpty()) {
-//            btnDialogLeft.background = resources.getDrawable(R.drawable.bg_btn_dialog_bottom_round, resources.newTheme())
-            btnDialogLeft.background = context?.resources?.getDrawable(R.drawable.bg_btn_dialog_bottom_round)
-        }
         btnDialogRight.text = rightButtonText.toString()
     }
 

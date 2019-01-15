@@ -10,6 +10,9 @@ import android.support.v4.app.DialogFragment
 import android.support.v4.app.FragmentManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.DisplayMetrics
+import android.util.Log
+import android.view.ViewGroup
 import android.view.Window
 import android.widget.TextView
 import com.example.mba0229p.da_nang_travel.R
@@ -38,6 +41,7 @@ class DialogListMapDetail : DialogFragment() {
                 setBackgroundDrawableResource(R.color.colorDialogBackGroundTransparent)
             }
             setContentView(R.layout.dialog_fragment_detail)
+            setCanceledOnTouchOutside(true)
 
             val btnCall = findViewById<TextView>(R.id.tvCall)
             val btnMaps = findViewById<TextView>(R.id.tvMaps)
@@ -55,6 +59,7 @@ class DialogListMapDetail : DialogFragment() {
 
             btnCall.setOnClickListener {
                 if (data?.phone != null) {
+                    Log.d("xxx", "phone == ${data?.phone}")
                     val intent = Intent(Intent.ACTION_CALL)
                     intent.data = Uri.parse("tel:" + data?.phone.toString())
                     context.startActivity(intent)
@@ -68,6 +73,18 @@ class DialogListMapDetail : DialogFragment() {
             btnMaps.setOnClickListener {
                 dismiss()
                 position?.let { it1 -> btnMapsListener.invoke(it1) }
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val displayMetrics = DisplayMetrics()
+        dialog.window.let {
+            it.windowManager.defaultDisplay.getMetrics(displayMetrics)
+            it.attributes = dialog.window.attributes.apply {
+                width = displayMetrics.widthPixels - displayMetrics.widthPixels / 5
+                height =  displayMetrics.heightPixels - displayMetrics.heightPixels / 6
             }
         }
     }

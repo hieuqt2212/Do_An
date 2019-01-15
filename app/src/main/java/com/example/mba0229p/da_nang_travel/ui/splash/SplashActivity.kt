@@ -22,5 +22,6 @@ class SplashActivity : BaseActivity() {
                     disposable?.dispose()
                     finish()
                 }
+//        moveActivity(Intent(this, MainActivity::class.java))
     }
 }

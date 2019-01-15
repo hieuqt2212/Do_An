@@ -164,8 +164,7 @@ abstract class BaseActivity : AppCompatActivity(),
 
     private fun checkGPS() {
         if (!isGpsOn()) {
-            Toast.makeText(this, "GPS is OFF",
-                    Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Vui lòng bật định vị để có thể sử dụng các chức năng của ứng dụng!", Toast.LENGTH_SHORT).show()
             return
         }
         startLocationUpdates()

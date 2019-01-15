@@ -23,7 +23,7 @@
 
             <LinearLayout
                 android:id="@+id/llMonthDay"
-                android:layout_width="35dp"
+                android:layout_width="40dp"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:background="@drawable/bg_radius_event_home"

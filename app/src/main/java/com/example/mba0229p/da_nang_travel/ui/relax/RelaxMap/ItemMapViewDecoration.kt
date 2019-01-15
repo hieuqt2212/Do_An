@@ -17,15 +17,9 @@ class ItemMapViewDecoration : RecyclerView.ItemDecoration() {
         when (currentPosition) {
             0 -> {
                 outRect.top = view.context.resources.getDimensionPixelOffset(R.dimen.item_todo_map_margin_horizontal_top)
-                outRect.left = view.context.resources.getDimensionPixelOffset(R.dimen.item_todo_map_margin_horizontal_center)
-                outRect.right = view.context.resources.getDimensionPixelOffset(R.dimen.item_todo_map_margin_horizontal_normal)
-                outRect.bottom = view.context.resources.getDimensionPixelOffset(R.dimen.item_todo_map_margin_horizontal_bottom)
             }
             (total?.minus(1)) -> {
                 outRect.top = view.context.resources.getDimensionPixelOffset(R.dimen.item_todo_map_margin_horizontal_top)
-                outRect.left = view.context.resources.getDimensionPixelOffset(R.dimen.item_todo_map_margin_horizontal_normal)
-                outRect.right = view.context.resources.getDimensionPixelOffset(R.dimen.item_todo_map_margin_horizontal_center)
-                outRect.bottom = view.context.resources.getDimensionPixelOffset(R.dimen.item_todo_map_margin_horizontal_bottom)
             }
             else -> {
                 outRect.top = view.context.resources.getDimensionPixelOffset(R.dimen.item_todo_map_margin_horizontal_top)
