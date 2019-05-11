@@ -138,6 +138,7 @@ class HotelMapsFragment : BaseFragment() {
                     markerCurrentLocation = it.addMarker(
                             MarkerOptions()
                                     .position(LatLng(lat, lng))
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_current_location))
                                     .title("Vị trí của bạn")
                     ).apply {
                         this?.showInfoWindow()
@@ -209,11 +210,11 @@ class HotelMapsFragment : BaseFragment() {
                             .observeOnUiThread()
                             .subscribe {
                                 moveNewPosition(it)
-                                listHotel[it].lat?.let { it1 -> listHotel[it].lng?.let { it2 -> LatLng(it1, it2) } }?.let { it2 -> showPosition(it2) }
                                 listHotel[it].apply {
                                     points?.let { point ->
                                         lat?.let { lat ->
                                             lng?.let { lng ->
+                                                showPosition(LatLng(lat, lng))
                                                 drawPolyline(point, LatLng(lat, lng))
                                             }
                                         }

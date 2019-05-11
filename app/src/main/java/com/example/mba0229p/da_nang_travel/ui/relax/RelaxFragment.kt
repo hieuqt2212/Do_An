@@ -166,6 +166,7 @@ class RelaxFragment : BaseFragment() {
         var count = 0
         if (!listRelax.isEmpty()) {
             if (currentLocation?.latitude != null && currentLocation?.longitude != null) {
+                Log.d("xxx", "call direction")
                 listRelax.forEach {
                     repository.getDrectionMap("${currentLocation?.latitude},${currentLocation?.longitude}",
                             "${it.lat},${it.lng}",

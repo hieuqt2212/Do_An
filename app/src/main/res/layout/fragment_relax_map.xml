@@ -63,14 +63,15 @@
                 android:id="@+id/flContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/rlArrow">
+                android:layout_below="@id/rlArrow"
+                android:background="@drawable/bg_map">
 
                 <com.example.mba0229p.da_nang_travel.widgets.EndlessRecyclerView
                     android:id="@+id/relaxRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
-                    android:background="@android:color/white"
+                    android:background="@drawable/bg_map"
                     android:scrollbars="none" />
 
                 <TextView
@@ -81,7 +82,7 @@
                     android:background="@android:color/white"
                     android:gravity="center"
                     android:padding="27dp"
-                    android:text="No Data."
+                    android:text="Không có dữ liệu."
                     android:textColor="@android:color/holo_red_dark"
                     android:textSize="20dp"
                     android:visibility="gone" />

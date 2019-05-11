@@ -1,5 +1,6 @@
 package com.example.mba0229p.da_nang_travel.ui.main
 
+import android.content.res.Configuration
 import android.os.Bundle
 import com.example.mba0229p.da_nang_travel.R
 import com.example.mba0229p.da_nang_travel.ui.base.BaseActivity
@@ -28,5 +29,11 @@ class MainActivity : BaseActivity() {
             }
             return@setOnNavigationItemSelectedListener true
         }
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration?) {
+        super.onConfigurationChanged(newConfig)
+        viewBottom.menu.clear()
+        viewBottom.inflateMenu(R.menu.menu_bottom_navigation)
     }
 }

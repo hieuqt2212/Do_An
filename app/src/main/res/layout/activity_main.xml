@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.main.MainActivity">
+    android:layout_height="match_parent">
 
     <com.example.mba0229p.da_nang_travel.widgets.CustomViewPager
         android:id="@+id/viewPagerContain"
@@ -17,8 +15,9 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimaryDark"
-        app:itemBackground="@color/colorAccent"
-        app:itemTextColor="@color/colorPrimary"
+        android:background="@android:color/white"
+        app:itemIconTint="@color/bg_selector_button_bottom"
+        app:itemTextColor="@color/bg_selector_button_bottom"
+        app:labelVisibilityMode="labeled"
         app:menu="@menu/menu_bottom_navigation" />
 </RelativeLayout>

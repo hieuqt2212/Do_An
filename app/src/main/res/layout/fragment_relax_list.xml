@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="No data."
+        android:text="Không có dữ liệu."
         android:textColor="@android:color/black"
         android:textSize="30dp"
         android:visibility="gone" />

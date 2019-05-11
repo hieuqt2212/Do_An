@@ -4,10 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:layout_marginBottom="40dp"
-    android:layout_marginEnd="10dp"
-    android:layout_marginStart="10dp"
-    android:layout_marginTop="40dp"
     android:background="@drawable/bg_dialog_info_home">
 
     <RelativeLayout
@@ -18,9 +14,9 @@
 
         <LinearLayout
             android:id="@+id/llDate"
-            android:layout_width="60dp"
+            android:layout_width="50dp"
             android:layout_height="match_parent"
-            android:background="@drawable/bg_date_time"
+            android:background="@drawable/bg_radius_event_home"
             android:orientation="vertical">
 
             <TextView
@@ -29,6 +25,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textColor="@color/colorPrimary"
                 android:text="10"
                 android:textSize="30dp" />
 
@@ -36,6 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginEnd="10dp"
+                android:textColor="@color/colorPrimary"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="2dp"
                 android:background="@android:color/darker_gray" />
@@ -45,6 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:textColor="@color/colorPrimary"
                 android:gravity="center"
                 android:text="29"
                 android:textSize="20dp" />
@@ -65,24 +64,11 @@
             tools:text="asdasdasdasdasdasdasda aasdasdas asd adas s " />
     </RelativeLayout>
 
-    <Button
-        android:id="@+id/btnItemCancel"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="10dp"
-        android:padding="5dp"
-        android:text="Xác nhận"
-        android:textColor="@android:color/holo_red_light"
-        android:textStyle="bold" />
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btnItemCancel"
-        android:layout_below="@+id/rlToolbar">
+        android:layout_below="@+id/rlToolbar"
+        android:layout_marginBottom="10dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -112,7 +98,7 @@
                 android:layout_below="@+id/recyclerViewItemAvatar"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="5dp"
-                android:text="* Một số thông tin về địa điểm :"
+                android:text="* Một số sự kiện nổi bật chuẩn bị diễn ra:"
                 android:textColor="@android:color/holo_blue_dark"
                 android:textStyle="italic" />
 
@@ -121,7 +107,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/labelContent"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
